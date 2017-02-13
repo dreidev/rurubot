@@ -4,15 +4,14 @@ require('dotenv').config()
 
 const schedule = require('node-schedule');
 const jsonQuery = require('json-query');
-
+// dreidev basic data
+const basicDataJSON = require('../data/basic-data.json');
 // TODO make imports
 const cleverbot = require('./cleverbot');
 const rurubot = require('./rurubot');
 const API = require('./api');
 const Conversations = require('./conversations');
 
-// personal DREIDEV data
-const dreidevInnerCircleUNames = ['tokyo', 'naderalexan', 'drazious', 'rawanhussein'];
 
 // get controller instance
 const controller = rurubot.controller;
@@ -50,7 +49,7 @@ controller.hears([
         }
         user.name = name;
         API.getMemberInfo(user.id).then(function(response) {
-            if (dreidevInnerCircleUNames.indexOf(response.data.user.name) > -1) {
+            if (basicDataJSON.dreidevInnerCircleUNames.indexOf(response.data.user.name) > -1) {
                 bot.reply(message, 'T h e pants !! ');
             }
         }).catch(function(error) {
