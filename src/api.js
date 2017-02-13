@@ -1,3 +1,4 @@
+'use strict';
 const axios = require('axios');
 
 const SLACK_API_URL = 'https://slack.com/api/';

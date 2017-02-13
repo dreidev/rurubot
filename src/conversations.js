@@ -1,3 +1,4 @@
+'use strict';
 const rurubot = require('./rurubot');
 // get controller instance
 const controller = rurubot.controller;

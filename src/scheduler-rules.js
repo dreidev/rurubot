@@ -1,3 +1,4 @@
+'use strict';
 const schedule = require('node-schedule');
 
 // Dreidev working days 10 am rule

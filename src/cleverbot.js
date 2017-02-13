@@ -1,3 +1,4 @@
+'use strict';
 // cleverbot instance (for fallback)
 const cleverbot = new(require("cleverbot.io"))(process.env.CLEVERBOT_API_USER, process.env.CLEVERBOT_API_KEY);
 cleverbot.setNick("Dry");
