@@ -1,0 +1,16 @@
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Mac os DS store files
+.DS_Store
