@@ -2,8 +2,9 @@
   "name": "rurubot",
   "version": "0.0.0",
   "description": "A slackbot for managing DREIDEV.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,9 @@
     "url": "http://github.com/dreidev"
   },
   "license": "MIT",
+  "files": [
+    "src/"
+  ],
   "keywords": [
     "bots",
     "chatbots",
