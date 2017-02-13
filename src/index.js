@@ -1,7 +1,6 @@
 'usestrict';
 
 require('dotenv').config();
-
 // TODO make imports
 // get controller instance
 const controller = require('./bots/rurubot').controller;
