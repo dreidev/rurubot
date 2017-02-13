@@ -1,0 +1,28 @@
+{
+  "name": "rurubot",
+  "version": "0.0.0",
+  "description": "A slackbot for managing DREIDEV.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dreidev/rurubot.git"
+  },
+  "author": {
+    "name": "Ahmed Tarek",
+    "email": "ahmed.tokyo1@gmail.com",
+    "url": "http://github.com/a-tokyo"
+  },
+  "organization": {
+    "name": "dreidev",
+    "email": "contact@dreidev.com",
+    "url": "http://github.com/dreidev"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dreidev/rurubot/issues"
+  },
+  "homepage": "https://github.com/dreidev/rurubot#readme"
+}
