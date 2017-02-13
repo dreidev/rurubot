@@ -1,7 +1,7 @@
 # rurubot
 A slackbot for managing DREIDEV.
 
-Rurobot extends botkit and cleverbot to create a slackbot for managing dreidev.
+[![Build Status](https://travis-ci.org/dreidev/rurubot.svg?branch=master)](https://travis-ci.org/dreidev/rurubot)
 
 ## Getting started
 
