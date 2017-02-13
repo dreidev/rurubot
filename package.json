@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/dreidev/rurubot/issues"
   },
-  "homepage": "https://github.com/dreidev/rurubot#readme"
+  "homepage": "https://github.com/dreidev/rurubot#readme",
+  "dependencies": {
+    "botkit": "^0.4.10"
+  }
 }
