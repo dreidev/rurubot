@@ -21,6 +21,16 @@
     "url": "http://github.com/dreidev"
   },
   "license": "MIT",
+  "keywords": [
+    "bots",
+    "chatbots",
+    "slack",
+    "facebook messenger",
+    "twilio ipm",
+    "microsoft bot framework",
+    "dreidev",
+    "tokyo",
+  ],
   "bugs": {
     "url": "https://github.com/dreidev/rurubot/issues"
   },
