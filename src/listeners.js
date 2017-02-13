@@ -1,9 +1,9 @@
 'usestrict';
 
 const jsonQuery = require('json-query');
-const cleverbot = require('./cleverbot');
+const cleverbot = require('./bots/cleverbot');
 const API = require('./api');
-const Conversations = require('./conversations');
+const Conversations = require('./conversations/conversations');
 // dreidev basic data
 const basicDataJSON = require('../data/basic-data.json');
 

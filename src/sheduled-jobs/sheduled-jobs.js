@@ -1,7 +1,7 @@
 'use strict';
 const schedule = require('node-schedule');
-const API = require('./api');
-const Conversations = require('./conversations');
+const API = require('../api');
+const Conversations = require('../conversations/conversations');
 // sheduler rules
 const shedulerRules = require('./scheduler-rules');
 

@@ -1,5 +1,5 @@
 'use strict';
-const rurubot = require('./rurubot');
+const rurubot = require('../bots/rurubot');
 // get controller instance
 const controller = rurubot.controller;
 // get rurobot bot instance
