@@ -15,16 +15,16 @@ const cleverbot = require('./cleverbot');
 const dreidevInnerCircleUNames = ['tokyo', 'naderalexan', 'drazious', 'rawanhussein'];
 
 // start bot logic
-var controller = Botkit.slackbot({debug: true});
+const controller = Botkit.slackbot({debug: true});
 
 // bot instance
-var bot = controller.spawn({token: process.env.SALCKBOT_TOKEN}).startRTM();
+const bot = controller.spawn({token: process.env.SALCKBOT_TOKEN}).startRTM();
 
 
 controller.hears([
     'call me (.*)', 'my name is (.*)'
 ], 'direct_message,direct_mention,mention', function(bot, message) {
-    var name = message.match[1];
+    let name = message.match[1];
     controller.storage.users.get(message.user, function(err, user) {
         if (!user) {
             user = {
@@ -42,7 +42,7 @@ controller.hears([
 controller.hears([
     'what does nader miss (.*)', 'what do I miss (.*)'
 ], 'direct_message,direct_mention,mention', function(bot, message) {
-    var name = message.match[1];
+    let name = message.match[1];
     controller.storage.users.get(message.user, function(err, user) {
         if (!user) {
             user = {
@@ -164,7 +164,7 @@ controller.hears([
 // FALLBACK to cleverbot
 
 controller.hears('', 'direct_message,direct_mention,mention', function(bot, message) {
-    // var msg = message.text;
+    // let msg = message.text;
     cleverbot.ask(message.text, function(err, response) {
         if (!err) {
             bot.reply(message, response);
