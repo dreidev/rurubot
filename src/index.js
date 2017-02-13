@@ -11,6 +11,8 @@ const cleverbot = require('./cleverbot');
 const rurubot = require('./rurubot');
 const API = require('./api');
 const Conversations = require('./conversations');
+// sheduler rules
+const shedulerRules = require('./scheduler-rules');
 
 
 // get controller instance
@@ -172,13 +174,7 @@ controller.hears('', 'direct_message,direct_mention,mention', function(bot, mess
     });
 })
 
-// Dreidev working days 10 am rule
-const workingDaysMoriningRule = new schedule.RecurrenceRule();
-workingDaysMoriningRule.dayOfWeek = [new schedule.Range(0, 4)];
-workingDaysMoriningRule.hour = 16;
-workingDaysMoriningRule.minute = 36;
-
-let scheduleMornigWorkCheckupQuestion = schedule.scheduleJob(workingDaysMoriningRule, function() {
+let scheduleMornigWorkCheckupQuestion = schedule.scheduleJob(shedulerRules.workingDaysMoriningRule, function() {
     API.getMembersList().then(function(response) {
         const members = response.data.members;
         members.forEach(function(member) {
