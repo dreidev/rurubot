@@ -17,3 +17,5 @@ To start the bot, run
 ```
 npm start
 ```
+
+### [Changelog](https://github.com/A-Tokyo/generator-at-angular/releases)
