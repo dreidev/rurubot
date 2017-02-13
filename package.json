@@ -1,7 +1,8 @@
 {
-  "name": "rurubot",
+  "name": "dreidev-rurubot",
   "version": "0.0.0",
   "description": "A slackbot for managing DREIDEV.",
+  "private": true,
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
