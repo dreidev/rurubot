@@ -1,11 +1,11 @@
 'usestrict';
 
 const jsonQuery = require('json-query');
-const cleverbot = require('./bots/cleverbot');
-const API = require('./api');
-const Conversations = require('./conversations/conversations');
+const cleverbot = require('../bots/cleverbot');
+const API = require('../api');
+const Conversations = require('../conversations/conversations');
 // dreidev basic data
-const basicDataJSON = require('../data/basic-data.json');
+const basicDataJSON = require('../../data/basic-data.json');
 
 module.exports = function(controller){
   controller.hears([
