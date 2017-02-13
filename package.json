@@ -36,6 +36,14 @@
   },
   "homepage": "https://github.com/dreidev/rurubot#readme",
   "dependencies": {
-    "botkit": "^0.4.10"
+    "botkit": "^0.4.10",
+    "axios": "^0.15.3",
+    "cleverbot.io": "^1.0.4",
+    "json-query": "^2.2.0",
+    "promise": "^7.1.1",
+    "node-schedule": "^1.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
   }
 }
