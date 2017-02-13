@@ -2,24 +2,23 @@
 
 require('dotenv').config()
 
-const Botkit = require('botkit');
-const os = require('os');
 const schedule = require('node-schedule');
 const jsonQuery = require('json-query');
-// TODO make imports
-const API = require('./api');
-const cleverbot = require('./cleverbot');
 
+// TODO make imports
+const cleverbot = require('./cleverbot');
+const rurubot = require('./rurubot');
+const API = require('./api');
+const Conversations = require('./conversations');
 
 // personal DREIDEV data
 const dreidevInnerCircleUNames = ['tokyo', 'naderalexan', 'drazious', 'rawanhussein'];
 
-// start bot logic
-const controller = Botkit.slackbot({debug: true});
+// get controller instance
+const controller = rurubot.controller;
 
-// bot instance
-const bot = controller.spawn({token: process.env.SALCKBOT_TOKEN}).startRTM();
-
+// get rurobot bot instance
+const bot = rurubot.bot;
 
 controller.hears([
     'call me (.*)', 'my name is (.*)'
@@ -177,74 +176,16 @@ controller.hears('', 'direct_message,direct_mention,mention', function(bot, mess
 // Dreidev working days 10 am rule
 const workingDaysMoriningRule = new schedule.RecurrenceRule();
 workingDaysMoriningRule.dayOfWeek = [new schedule.Range(0, 4)];
-workingDaysMoriningRule.hour = 11;
-workingDaysMoriningRule.minute = 58;
+workingDaysMoriningRule.hour = 16;
+workingDaysMoriningRule.minute = 36;
 
 let scheduleMornigWorkCheckupQuestion = schedule.scheduleJob(workingDaysMoriningRule, function() {
     API.getMembersList().then(function(response) {
         const members = response.data.members;
         members.forEach(function(member) {
-            workingDaysMoriningPrivConvo(member);
+            Conversations.workingDaysMoriningPrivConvo(member);
         });
     }).catch(function(error) {
         console.log(error);
     });
 });
-
-function workingDaysMoriningPrivConvo (member) {
-    let memberWorkTodayList = [];
-    if (member.name === 'tokyo') {
-        bot.startPrivateConversation({
-            user: member.id
-        }, function(err, convo) {
-            if (!err) {
-                convo.say('Hello, ' + member.name);
-                convo.ask('What are your working on today?', function(response, convo) {
-                    convo.ask('Awesome, anything else?', [
-                        {
-                            pattern: 'yes',
-                            callback: function(response, convo) {
-                                console.log("------------ res");
-                                console.log(response);
-                                console.log("------------ res");
-                                console.log("------------ conv");
-                                console.log(convo);
-                                console.log("------------ conv");
-                            }
-                        }, {
-                            pattern: 'no',
-                            callback: function(response, convo) {
-                                // stop the conversation. this will cause it to end with status == 'stopped'
-                                convo.next();
-                            }
-                        }, {
-                            default: true,
-                            callback: function(response, convo) {
-                                console.log(response);
-                                convo.repeat();
-                                convo.next();
-                            }
-                        }
-                    ]);
-
-                    convo.next();
-
-                }, {'key': 'nickname'}); // store the results in a field called nickname
-
-                convo.on('end', function(convo) {
-                    if (convo.status == 'completed') {
-                        // this happens if the conversation ended normally
-                        bot.say({
-                            text: 'Okay, great. Good luck ' + member.name,
-                            channel: member.id
-                        });
-                    } else {
-                        // this happens if the conversation ended prematurely for some reason
-                        bot.say({text: 'OK, nevermind!', channel: member.id});
-                    }
-                });
-            }
-        });
-
-    }
-};
