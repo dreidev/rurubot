@@ -47,6 +47,8 @@
     "node-schedule": "^1.2.0"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "eslint": "^3.15.0",
+    "eslint-config-dreidev": "^0.1.0"
   }
 }

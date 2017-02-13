@@ -1,6 +1,6 @@
 'usestrict';
 
-require('dotenv').config()
+require('dotenv').config();
 
 // TODO make imports
 // get controller instance
