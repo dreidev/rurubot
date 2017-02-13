@@ -4,9 +4,11 @@ require('dotenv').config()
 
 const Botkit = require('botkit');
 const os = require('os');
-const axios = require('axios');
 const schedule = require('node-schedule');
 const jsonQuery = require('json-query');
+// TODO make imports
+const API = require('./api');
+
 
 // personal DREIDEV data
 const dreidevInnerCircleUNames = ['tokyo', 'naderalexan', 'drazious', 'rawanhussein'];
@@ -57,7 +59,7 @@ controller.hears([
             };
         }
         user.name = name;
-        getMemberInfo(user.id).then(function(response) {
+        API.getMemberInfo(user.id).then(function(response) {
             if (dreidevInnerCircleUNames.indexOf(response.data.user.name) > -1) {
                 bot.reply(message, 'T h e pants !! ');
             }
@@ -137,7 +139,7 @@ controller.hears([
 controller.hears([
     'testruru', 'testrurubot'
 ], 'direct_message,direct_mention,mention', function(bot, message) {
-    getChannelsList().then(function(response) {
+    API.getChannelsList().then(function(response) {
         const channels = response.data.channels;
         const testChannelId = jsonQuery('[name=test-dreidev]', {data: channels}).value.id;
         console.log('channel id: ' + testChannelId);
@@ -153,7 +155,7 @@ controller.hears([
 controller.hears([
     'testUsers', 'testFunc'
 ], 'direct_message,direct_mention,mention', function(bot, message) {
-    getMembersList().then(function(response) {
+    API.getMembersList().then(function(response) {
         const members = response.data.members;
         members.forEach(function(member) {
             if (!member.deleted && member.name === 'tokyo') {
@@ -188,7 +190,7 @@ workingDaysMoriningRule.hour = 11;
 workingDaysMoriningRule.minute = 58;
 
 let scheduleMornigWorkCheckupQuestion = schedule.scheduleJob(workingDaysMoriningRule, function() {
-    getMembersList().then(function(response) {
+    API.getMembersList().then(function(response) {
         const members = response.data.members;
         members.forEach(function(member) {
             workingDaysMoriningPrivConvo(member);
@@ -254,31 +256,4 @@ function workingDaysMoriningPrivConvo (member) {
         });
 
     }
-};
-
-// API
-
-function getMembersList(){
-    return axios.get('https://slack.com/api/users.list', {
-        params: {
-            token: process.env.SALCKBOT_API_TOKEN
-        }
-    });
-};
-
-function getMemberInfo(userID){
-    return axios.get('https://slack.com/api/users.info', {
-        params: {
-            token: process.env.SALCKBOT_API_TOKEN,
-            user: userID
-        }
-    });
-};
-
-function getChannelsList(){
-    return axios.get('https://slack.com/api/channels.list', {
-        params: {
-            token: process.env.SALCKBOT_API_TOKEN
-        }
-    });
 };
