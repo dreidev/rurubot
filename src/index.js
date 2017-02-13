@@ -2,7 +2,6 @@
 
 require('dotenv').config()
 
-const schedule = require('node-schedule');
 const jsonQuery = require('json-query');
 // dreidev basic data
 const basicDataJSON = require('../data/basic-data.json');
@@ -11,9 +10,7 @@ const cleverbot = require('./cleverbot');
 const rurubot = require('./rurubot');
 const API = require('./api');
 const Conversations = require('./conversations');
-// sheduler rules
-const shedulerRules = require('./scheduler-rules');
-
+const sheduledJobs = require('./sheduled-jobs');
 
 // get controller instance
 const controller = rurubot.controller;
@@ -173,14 +170,3 @@ controller.hears('', 'direct_message,direct_mention,mention', function(bot, mess
         }
     });
 })
-
-let scheduleMornigWorkCheckupQuestion = schedule.scheduleJob(shedulerRules.workingDaysMoriningRule, function() {
-    API.getMembersList().then(function(response) {
-        const members = response.data.members;
-        members.forEach(function(member) {
-            Conversations.workingDaysMoriningPrivConvo(member);
-        });
-    }).catch(function(error) {
-        console.log(error);
-    });
-});
