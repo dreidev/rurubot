@@ -8,6 +8,7 @@ const schedule = require('node-schedule');
 const jsonQuery = require('json-query');
 // TODO make imports
 const API = require('./api');
+const cleverbot = require('./cleverbot');
 
 
 // personal DREIDEV data
@@ -19,16 +20,6 @@ var controller = Botkit.slackbot({debug: true});
 // bot instance
 var bot = controller.spawn({token: process.env.SALCKBOT_TOKEN}).startRTM();
 
-// cleverbot instance (for fallback)
-let cleverbot = new(require("cleverbot.io"))(process.env.CLEVERBOT_API_USER, process.env.CLEVERBOT_API_KEY);
-cleverbot.setNick("Dry");
-cleverbot.create(function(err, session) {
-    if (err) {
-        console.log('cleverbot create fail.');
-    } else {
-        console.log('cleverbot create success.');
-    }
-});
 
 controller.hears([
     'call me (.*)', 'my name is (.*)'
