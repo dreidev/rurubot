@@ -119,11 +119,7 @@ module.exports = function(controller) {
   controller.hears([
     'testruru', 'testrurubot',
   ], 'direct_message,direct_mention,mention', function(bot, message) {
-      // const channels = response.data.channels;
-      // const testChannelId = jsonQuery('[name=test-dreidev]', {data: channels}).value.id;
-      // console.log('channel id: ' + testChannelId);
       const Conversations = require('../conversations/conversations');
-      // Conversations.workingDaysMoriningPrivConvo(message.user);
       API.getMembersList().then(function(response) {
           const members = response.data.members;
           members.forEach(function(member) {
@@ -132,8 +128,6 @@ module.exports = function(controller) {
       }).catch(function(error) {
           console.log(error);
       });
-      // bot.reply(message, 'You triggered the rorobot test command, like you need to DUH, I\'m working fine !!');
-    // require('../develop')();
   });
 
 
@@ -166,7 +160,6 @@ module.exports = function(controller) {
   // FALLBACK to cleverbot
 
   controller.hears('', 'direct_message,direct_mention,mention', function(bot, message) {
-    // let msg = message.text;
     cleverbot.ask(message.text, function(err, response) {
       if (!err) {
         bot.reply(message, response);
