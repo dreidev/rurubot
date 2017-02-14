@@ -140,7 +140,7 @@ module.exports = function(controller) {
       let groceryListItem = new GroceryListItem({
         name: itemName,
         state: 'notChecked',
-        // user_id: 'userId',
+        user_id: message.user,
       });
       groceryListItem.save(function(err, result) {
         if (err) {
