@@ -45,6 +45,7 @@
     "botkit": "^0.4.10",
     "cleverbot.io": "^1.0.4",
     "json-query": "^2.2.0",
+    "mongoose": "^4.8.2",
     "node-schedule": "^1.2.0"
   },
   "devDependencies": {
