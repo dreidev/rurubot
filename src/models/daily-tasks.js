@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 let dailyTasksSchema = new mongoose.Schema({
-  slack_id: {
+  user_id: {
     type: String,
   },
   date: {
@@ -16,7 +16,7 @@ let dailyTasksSchema = new mongoose.Schema({
   ],
 });
 
-dailyTasksSchema.index({slack_id: 1, date: 1}, {unique: true});
+dailyTasksSchema.index({user_id: 1, date: 1}, {unique: true});
 
 const DailyTasks = mongoose.model('DailyTasks', dailyTasksSchema);
 
