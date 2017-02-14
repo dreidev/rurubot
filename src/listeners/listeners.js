@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const config = require('../../config/config');
 // const jsonQuery = require('json-query');
-const cleverbot = require('../bots/cleverbot');
 const API = require('../api');
 const Conversations = require('../conversations/conversations');
 
@@ -108,14 +107,5 @@ module.exports = function(controller) {
   });
 
   // FALLBACK to cleverbot
-
-  controller.hears('', 'direct_message,direct_mention,mention', (bot, message) => {
-    cleverbot.ask(message.text, (err, response) => {
-      if (!err) {
-        bot.reply(message, response);
-      } else {
-        console.log('cleverbot err: ' + err);
-      }
-    });
-  });
+  require('./fallback-cleverbot-listener')(controller);
 };
