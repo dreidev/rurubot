@@ -1,0 +1,63 @@
+{
+  "name": "dreidev-rurubot",
+  "version": "0.0.0",
+  "description": "A slackbot for managing DREIDEV.",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node_modules/.bin/eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dreidev/rurubot.git"
+  },
+  "author": {
+    "name": "Ahmed Tarek",
+    "email": "ahmed.tokyo1@gmail.com",
+    "url": "http://github.com/a-tokyo"
+  },
+  "organization": {
+    "name": "dreidev",
+    "email": "contact@dreidev.com",
+    "url": "http://github.com/dreidev"
+  },
+  "contributors": [
+    {
+      "name": "Ahmed Tarek",
+      "email": "ahmed.tokyo1@gmail.com",
+      "url": "http://github.com/a-tokyo"
+    }
+  ],
+  "license": "MIT",
+  "files": [
+    "src/"
+  ],
+  "keywords": [
+    "bots",
+    "chatbots",
+    "slack",
+    "facebook messenger",
+    "twilio ipm",
+    "microsoft bot framework",
+    "dreidev",
+    "tokyo"
+  ],
+  "bugs": {
+    "url": "https://github.com/dreidev/rurubot/issues"
+  },
+  "homepage": "https://github.com/dreidev/rurubot#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "botkit": "^0.4.10",
+    "cleverbot.io": "^1.0.4",
+    "json-query": "^2.2.0",
+    "mongoose": "^4.8.2",
+    "node-schedule": "^1.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "eslint": "^3.15.0",
+    "eslint-config-dreidev": "^0.1.0"
+  }
+}
