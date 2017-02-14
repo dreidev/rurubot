@@ -1,15 +1,10 @@
 'usestrict';
 
-const mongoose = require('mongoose');
-const config = require('../../config/config');
+// const config = require('../../config/config');
 // const jsonQuery = require('json-query');
 const API = require('../api');
 const Conversations = require('../conversations/conversations');
 
-// models
-const GroceryListItem = require('../models/grocery-list');
-
-// const Conversations = require('../conversations/conversations');
 // dreidev basic data
 const basicDataJSON = require('../../data/basic-data.json');
 
@@ -81,30 +76,7 @@ module.exports = function(controller) {
   });
 
 
-  // grocery list function
-  controller.hears([
-    'add (.*) to grocery list',
-    'add (.*) to grocery-list',
-    'add (.*) to groceries',
-    'add (.*) to ([^"\r\n]*) grocery list',
-  ], 'direct_message,direct_mention,mention', (bot, message) => {
-      let itemName = message.match[1];
-      bot.reply(message, `Okay I added ${itemName} to the grocery list.`);
-      mongoose.connect(config.MONGO_URI);
-      GroceryListItem.create({
-        name: itemName,
-        state: 'notChecked',
-        user_id: message.user,
-      }, (err, result)=>{
-        if (err) {
-          console.log(err);
-          bot.reply(message, `uhm, Sorry but I couldn't add ${itemName} to the grocery list.`);
-        } else {
-          console.log(result);
-        }
-        mongoose.disconnect();
-      });
-  });
+  require('./grocery-list-listener')(controller);
 
   // FALLBACK to cleverbot
   require('./fallback-cleverbot-listener')(controller);
