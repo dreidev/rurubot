@@ -12,7 +12,7 @@ function writeData(userID, list) {
   mongoose.connect(config.MONGO_URI);
   DailyTasks.create({
     user_id: userID,
-    tasks: list
+    tasks: list,
   }, (res, err) => {
     if (err) {
       console.log(err);
@@ -27,7 +27,7 @@ module.exports = function(member) {
   let memberCurrentDayTasks = [];
   if (member.name === 'tokyo') {
     bot.startPrivateConversation({
-      user: member.id
+      user: member.id,
     }, (err, convo) => {
       if (!err) {
         // convo.say('Hello, ' + member.name);
@@ -38,22 +38,18 @@ module.exports = function(member) {
               memberCurrentDayTasks.push({description: response.text});
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('never_mind');
-            }
+            },
           }, {
             default: true,
             callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
               convo.changeTopic('anything_else_1');
-            }
-          }
+            },
+          },
         ], {});
 
-        // convo.addQuestion({
-        //   text: 'What are your working on today?'
-        // }, () => {}, 'what_are_you_working_on');
-
         convo.addQuestion({
-          text: 'Cool, what is it?'
+          text: 'Cool, what is it?',
         }, [
           {
             pattern: 'nothing',
@@ -61,48 +57,48 @@ module.exports = function(member) {
               // stop the conversation. this will cause it to end with status == 'stopped'
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('never_mind');
-            }
+            },
           }, {
             default: true,
             callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
               // console.log(response);
               convo.changeTopic('anything_else_1');
-            }
-          }
+            },
+          },
         ], {}, 'anything_else_2');
 
         convo.addQuestion({
-          text: 'Awesome, Are you working on anything else?'
+          text: 'Awesome, Are you working on anything else?',
         }, [
           {
             pattern: 'yes',
             callback: (response, convo) => {
               convo.changeTopic('anything_else_2');
-            }
+            },
           }, {
             pattern: 'no',
             callback: (response, convo) => {
               // stop the conversation. this will cause it to end with status == 'stopped'
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('good_luck');
-            }
+            },
           }, {
             default: true,
             callback: (response, convo) => {
               // console.log(response);
               memberCurrentDayTasks.push({description: response.text});
               convo.changeTopic('anything_else_1');
-            }
-          }
+            },
+          },
         ], {}, 'anything_else_1');
 
         convo.addMessage({
-          text: 'Okay, Never mind.'
+          text: 'Okay, Never mind.',
         }, 'never_mind');
 
         convo.addMessage({
-          text: 'Okay, Good luck.'
+          text: 'Okay, Good luck.',
         }, 'good_luck');
 
         convo.activate();

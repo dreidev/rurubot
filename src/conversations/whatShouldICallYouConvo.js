@@ -3,8 +3,9 @@
 const rurubot = require('../bots/rurubot');
 // get rurobot bot instance
 const bot = rurubot.bot;
+const controller = rurubot.controller;
 
-module.exports = function(message){
+module.exports = function(message) {
   bot.startConversation(message, (err, convo) => {
     if (!err) {
       convo.say('I do not know your name yet!');
