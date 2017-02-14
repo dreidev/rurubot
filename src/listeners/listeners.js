@@ -113,14 +113,10 @@ module.exports = function(controller) {
   controller.hears([
     'testruru', 'testrurubot',
   ], 'direct_message,direct_mention,mention', function(bot, message) {
-    API.getChannelsList().then(function(response) {
-      const channels = response.data.channels;
-      const testChannelId = jsonQuery('[name=test-dreidev]', {data: channels}).value.id;
-      console.log('channel id: ' + testChannelId);
+      // const channels = response.data.channels;
+      // const testChannelId = jsonQuery('[name=test-dreidev]', {data: channels}).value.id;
+      // console.log('channel id: ' + testChannelId);
       bot.reply(message, 'You triggered the rorobot test command, like you need to DUH, I\'m working fine !!');
-    }).catch(function(error) {
-      console.log(error);
-    });
     // require('../develop')();
   });
 
