@@ -3,6 +3,12 @@ const rurubot = require('../bots/rurubot');
 // get rurobot bot instance
 const bot = rurubot.bot;
 
+// writes data
+function writeData(list) {
+  console.log('writing data');
+}
+
+
 module.exports.workingDaysMoriningPrivConvo = function(member) {
   // let memberWorkTodayList = [];
   if (member.name === 'tokyo') {
@@ -15,6 +21,7 @@ module.exports.workingDaysMoriningPrivConvo = function(member) {
           {
             pattern: 'nothing',
             callback: function(response, convo) {
+              writeData();
               convo.changeTopic('never_mind');
             },
           }, {
@@ -36,6 +43,7 @@ module.exports.workingDaysMoriningPrivConvo = function(member) {
             pattern: 'nothing',
             callback: function(response, convo) {
               // stop the conversation. this will cause it to end with status == 'stopped'
+              writeData();
               convo.changeTopic('never_mind');
             },
           }, {
@@ -59,6 +67,7 @@ module.exports.workingDaysMoriningPrivConvo = function(member) {
             pattern: 'no',
             callback: function(response, convo) {
               // stop the conversation. this will cause it to end with status == 'stopped'
+              writeData();
               convo.changeTopic('good_luck');
             },
           }, {
