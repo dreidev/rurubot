@@ -60,24 +60,10 @@ module.exports = function(controller) {
     });
   });
 
-  // testing function
-  controller.hears([
-    'testruru', 'testrurubot',
-  ], 'direct_message,direct_mention,mention', (bot, message) => {
-      const Conversations = require('../conversations/conversations');
-      API.getMembersList().then((response) => {
-          const members = response.data.members;
-          members.forEach((member) => {
-              Conversations.workingDaysMoriningPrivConvo(member);
-          });
-      }).catch((error) => {
-          console.log(error);
-      });
-  });
-
-
+  // testing listener
+  require('./testruru-listener')(controller);
+  // grocery-list listener
   require('./grocery-list-listener')(controller);
-
   // FALLBACK to cleverbot
   require('./fallback-cleverbot-listener')(controller);
 };
