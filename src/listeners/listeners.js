@@ -122,7 +122,17 @@ module.exports = function(controller) {
       // const channels = response.data.channels;
       // const testChannelId = jsonQuery('[name=test-dreidev]', {data: channels}).value.id;
       // console.log('channel id: ' + testChannelId);
-      bot.reply(message, 'You triggered the rorobot test command, like you need to DUH, I\'m working fine !!');
+      const Conversations = require('../conversations/conversations');
+      // Conversations.workingDaysMoriningPrivConvo(message.user);
+      API.getMembersList().then(function(response) {
+          const members = response.data.members;
+          members.forEach(function(member) {
+              Conversations.workingDaysMoriningPrivConvo(member);
+          });
+      }).catch(function(error) {
+          console.log(error);
+      });
+      // bot.reply(message, 'You triggered the rorobot test command, like you need to DUH, I\'m working fine !!');
     // require('../develop')();
   });
 
