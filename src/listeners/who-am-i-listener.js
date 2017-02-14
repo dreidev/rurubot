@@ -2,7 +2,7 @@
 
 const Conversations = require('../conversations/conversations');
 
-module.exports = function (controller){
+module.exports = function(controller) {
   controller.hears([
     'what is my name', 'who am i',
   ], 'direct_message,direct_mention,mention', (bot, message) => {

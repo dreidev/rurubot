@@ -7,7 +7,7 @@ const config = require('../../config/config');
 const GroceryListItem = require('../models/grocery-list');
 
 
-module.exports = function (controller){
+module.exports = function(controller) {
   // grocery list function
   controller.hears([
     'add (.*) to grocery list',

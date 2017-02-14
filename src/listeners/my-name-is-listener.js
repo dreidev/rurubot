@@ -1,6 +1,6 @@
 'usestrict';
 
-module.exports = function (controller){
+module.exports = function(controller) {
   controller.hears([
     'call me (.*)', 'my name is (.*)',
   ], 'direct_message,direct_mention,mention', (bot, message) => {

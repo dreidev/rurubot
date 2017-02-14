@@ -2,7 +2,7 @@
 
 const cleverbot = require('../bots/cleverbot');
 
-module.exports = function (controller, bot){
+module.exports = function(controller, bot) {
   controller.hears('', 'direct_message,direct_mention,mention', (bot, message) => {
     cleverbot.ask(message.text, (err, response) => {
       if (!err) {
@@ -12,4 +12,4 @@ module.exports = function (controller, bot){
       }
     });
   });
-}
+};

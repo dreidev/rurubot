@@ -3,7 +3,7 @@
 const API = require('../../api');
 const basicDataJSON = require('../../../data/basic-data.json');
 
-module.exports = function (controller){
+module.exports = function(controller) {
   // pants function
   controller.hears([
     'what does nader miss (.*)', 'what do I miss (.*)',
