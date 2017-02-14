@@ -12,15 +12,12 @@ let groceryListSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  description: {
-    type: String,
-  },
   state: {
     type: String,
     enum: ['checked', 'notChecked'],
   },
 });
 
-const GroceryList = mongoose.model('GroceryList', groceryListSchema);
+const GroceryListItem = mongoose.model('GroceryListItem', groceryListSchema);
 
-module.exports = GroceryList;
+module.exports = GroceryListItem;
