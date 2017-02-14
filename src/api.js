@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const SLACK_API_URL = 'https://slack.com/api/';
 
-module.exports.getMembersList = function() {
+module.exports.getMembersList = () => {
   return axios.get(SLACK_API_URL + 'users.list', {
     params: {
       token: process.env.SALCKBOT_API_TOKEN,
@@ -11,7 +11,7 @@ module.exports.getMembersList = function() {
   });
 };
 
-module.exports.getMemberInfo = function(userID) {
+module.exports.getMemberInfo = (userID) => {
   return axios.get(SLACK_API_URL + 'users.info', {
     params: {
       token: process.env.SALCKBOT_API_TOKEN,
@@ -20,7 +20,7 @@ module.exports.getMemberInfo = function(userID) {
   });
 };
 
-module.exports.getChannelsList = function() {
+module.exports.getChannelsList = () => {
   return axios.get(SLACK_API_URL + 'channels.list', {
     params: {
       token: process.env.SALCKBOT_API_TOKEN,
