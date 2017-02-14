@@ -1,7 +1,5 @@
 'use strict';
 const rurubot = require('../bots/rurubot');
-// get controller instance
-// const controller = rurubot.controller;
 // get rurobot bot instance
 const bot = rurubot.bot;
 
@@ -13,7 +11,7 @@ module.exports.workingDaysMoriningPrivConvo = function(member) {
     }, function(err, convo) {
       if (!err) {
         // convo.say('Hello, ' + member.name);
-        convo.ask('What are your working on today Tok?', [
+        convo.ask('Hello ' + member.name +',\nWhat are your working on today?', [
           {
             pattern: 'nothing',
             callback: function(response, convo) {
