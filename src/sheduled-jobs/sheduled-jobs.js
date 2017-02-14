@@ -10,13 +10,13 @@ module.exports = function() {
    * scheduleMornigWorkCheckupQuestion sends a direct message to each member
    * asking them what they are working on today
    */
-  schedule.scheduleJob(shedulerRules.workingDaysMoriningRule, function() {
-      API.getMembersList().then(function(response) {
+  schedule.scheduleJob(shedulerRules.workingDaysMoriningRule, () => {
+      API.getMembersList().then((response) => {
           const members = response.data.members;
-          members.forEach(function(member) {
+          members.forEach((member) => {
               Conversations.workingDaysMoriningPrivConvo(member);
           });
-      }).catch(function(error) {
+      }).catch((error) => {
           console.log(error);
       });
   });
