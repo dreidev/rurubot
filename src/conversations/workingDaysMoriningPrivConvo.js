@@ -28,43 +28,43 @@ module.exports = function(member) {
   if (member.name === 'tokyo') {
     bot.startPrivateConversation({
       user: member.id
-    }, function(err, convo) {
+    }, (err, convo) => {
       if (!err) {
         // convo.say('Hello, ' + member.name);
         convo.ask('Hello ' + member.name + ',\nWhat are your working on today?', [
           {
             pattern: 'nothing',
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('never_mind');
             }
           }, {
             default: true,
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
               convo.changeTopic('anything_else_1');
             }
           }
         ], {});
 
-        convo.addQuestion({
-          text: 'What are your working on today?'
-        }, function() {}, 'what_are_you_working_on');
+        // convo.addQuestion({
+        //   text: 'What are your working on today?'
+        // }, () => {}, 'what_are_you_working_on');
 
         convo.addQuestion({
           text: 'Cool, what is it?'
         }, [
           {
             pattern: 'nothing',
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               // stop the conversation. this will cause it to end with status == 'stopped'
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('never_mind');
             }
           }, {
             default: true,
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
               // console.log(response);
               convo.changeTopic('anything_else_1');
@@ -77,19 +77,19 @@ module.exports = function(member) {
         }, [
           {
             pattern: 'yes',
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               convo.changeTopic('anything_else_2');
             }
           }, {
             pattern: 'no',
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               // stop the conversation. this will cause it to end with status == 'stopped'
               writeData(member.id, memberCurrentDayTasks);
               convo.changeTopic('good_luck');
             }
           }, {
             default: true,
-            callback: function(response, convo) {
+            callback: (response, convo) => {
               // console.log(response);
               memberCurrentDayTasks.push({description: response.text});
               convo.changeTopic('anything_else_1');
