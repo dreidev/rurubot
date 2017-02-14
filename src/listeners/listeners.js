@@ -16,16 +16,16 @@ const basicDataJSON = require('../../data/basic-data.json');
 module.exports = function(controller) {
   controller.hears([
     'call me (.*)', 'my name is (.*)',
-  ], 'direct_message,direct_mention,mention', function(bot, message) {
+  ], 'direct_message,direct_mention,mention', (bot, message) => {
     let name = message.match[1];
-    controller.storage.users.get(message.user, function(err, user) {
+    controller.storage.users.get(message.user, (err, user) => {
       if (!user) {
         user = {
           id: message.user,
         };
       }
       user.name = name;
-      controller.storage.users.save(user, function(err, id) {
+      controller.storage.users.save(user, (err, id) => {
         bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
       });
     });
@@ -34,20 +34,20 @@ module.exports = function(controller) {
   // pants function
   controller.hears([
     'what does nader miss (.*)', 'what do I miss (.*)',
-  ], 'direct_message,direct_mention,mention', function(bot, message) {
+  ], 'direct_message,direct_mention,mention', (bot, message) => {
     let name = message.match[1];
-    controller.storage.users.get(message.user, function(err, user) {
+    controller.storage.users.get(message.user, (err, user) => {
       if (!user) {
         user = {
           id: message.user,
         };
       }
       user.name = name;
-      API.getMemberInfo(user.id).then(function(response) {
+      API.getMemberInfo(user.id).then((response) => {
         if (basicDataJSON.dreidevInnerCircleUNames.indexOf(response.data.user.name) > -1) {
           bot.reply(message, 'T h e pants !! ');
         }
-      }).catch(function(error) {
+      }).catch((error) => {
         console.log(error);
       });
     });
@@ -55,32 +55,32 @@ module.exports = function(controller) {
 
   controller.hears([
     'what is my name', 'who am i',
-  ], 'direct_message,direct_mention,mention', function(bot, message) {
-    controller.storage.users.get(message.user, function(err, user) {
+  ], 'direct_message,direct_mention,mention', (bot, message) => {
+    controller.storage.users.get(message.user, (err, user) => {
       if (user && user.name) {
         bot.reply(message, 'Your name is ' + user.name);
       } else {
-        bot.startConversation(message, function(err, convo) {
+        bot.startConversation(message, (err, convo) => {
           if (!err) {
             convo.say('I do not know your name yet!');
-            convo.ask('What should I call you?', function(response, convo) {
+            convo.ask('What should I call you?', (response, convo) => {
               convo.ask('You want me to call you `' + response.text + '`?', [
                 {
                   pattern: 'yes',
-                  callback: function(response, convo) {
+                  callback: (response, convo) => {
                     // since no further messages are queued after this,
                     // the conversation will end naturally with status == 'completed'
                     convo.next();
                   },
                 }, {
                   pattern: 'no',
-                  callback: function(response, convo) {
+                  callback: (response, convo) => {
                     // stop the conversation. this will cause it to end with status == 'stopped'
                     convo.stop();
                   },
                 }, {
                   default: true,
-                  callback: function(response, convo) {
+                  callback: (response, convo) => {
                     convo.repeat();
                     convo.next();
                   },
@@ -89,18 +89,18 @@ module.exports = function(controller) {
 
               convo.next();
             }, {'key': 'nickname'}); // store the results in a field called nickname
-            convo.on('end', function(convo) {
+            convo.on('end', (convo) => {
               if (convo.status == 'completed') {
                 bot.reply(message, 'OK! I will update my dossier...');
 
-                controller.storage.users.get(message.user, function(err, user) {
+                controller.storage.users.get(message.user, (err, user) => {
                   if (!user) {
                     user = {
                       id: message.user,
                     };
                   }
                   user.name = convo.extractResponse('nickname');
-                  controller.storage.users.save(user, function(err, id) {
+                  controller.storage.users.save(user, (err, id) => {
                     bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
                   });
                 });
@@ -118,14 +118,14 @@ module.exports = function(controller) {
   // testing function
   controller.hears([
     'testruru', 'testrurubot',
-  ], 'direct_message,direct_mention,mention', function(bot, message) {
+  ], 'direct_message,direct_mention,mention', (bot, message) => {
       const Conversations = require('../conversations/conversations');
-      API.getMembersList().then(function(response) {
+      API.getMembersList().then((response) => {
           const members = response.data.members;
-          members.forEach(function(member) {
+          members.forEach((member) => {
               Conversations.workingDaysMoriningPrivConvo(member);
           });
-      }).catch(function(error) {
+      }).catch((error) => {
           console.log(error);
       });
   });
@@ -137,30 +137,29 @@ module.exports = function(controller) {
     'add (.*) to grocery-list',
     'add (.*) to groceries',
     'add (.*) to ([^"\r\n]*) grocery list',
-  ], 'direct_message,direct_mention,mention', function(bot, message) {
+  ], 'direct_message,direct_mention,mention', (bot, message) => {
       let itemName = message.match[1];
       bot.reply(message, `Okay I added ${itemName} to the grocery list.`);
       mongoose.connect(config.MONGO_URI);
-      let groceryListItem = new GroceryListItem({
+      GroceryListItem.create({
         name: itemName,
         state: 'notChecked',
         user_id: message.user,
-      });
-      groceryListItem.save(function(err, result) {
+      }, (err, result)=>{
         if (err) {
           console.log(err);
           bot.reply(message, `uhm, Sorry but I couldn't add ${itemName} to the grocery list.`);
         } else {
           console.log(result);
         }
+        mongoose.disconnect();
       });
-      mongoose.disconnect();
   });
 
   // FALLBACK to cleverbot
 
-  controller.hears('', 'direct_message,direct_mention,mention', function(bot, message) {
-    cleverbot.ask(message.text, function(err, response) {
+  controller.hears('', 'direct_message,direct_mention,mention', (bot, message) => {
+    cleverbot.ask(message.text, (err, response) => {
       if (!err) {
         bot.reply(message, response);
       } else {
