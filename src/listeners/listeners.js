@@ -10,7 +10,7 @@ module.exports = function(controller) {
   require('./grocery-list-listener')(controller);
   // private listeners
   // pants-listener listener
-  require('./private/pants-listener')(controller);
+  require('./innerCircle/pants-listener')(controller);
   // FALLBACKS
   // FALLBACK to cleverbot
   require('./fallback-cleverbot-listener')(controller);
