@@ -5,7 +5,7 @@ const cleverbot = new(require('cleverbot.io'))(
   process.env.CLEVERBOT_API_KEY
 );
 cleverbot.setNick('Ruru');
-cleverbot.create(function(err, session) {
+cleverbot.create((err, session) => {
   if (err) {
     console.log('cleverbot create fail.');
   } else {
