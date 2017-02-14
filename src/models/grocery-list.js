@@ -1,19 +1,24 @@
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 let groceryListSchema = new mongoose.Schema({
-  slack_id: {
+  name: {
     type: String,
-    unique: true,
   },
-  date: {
+  user_id: {
+    type: String,
+  },
+  date_added: {
     type: Date,
     default: Date.now,
   },
-  tasks: [
-    {
-      description: String,
-    },
-  ],
+  description: {
+    type: String,
+  },
+  state: {
+    type: String,
+    enum: ['checked', 'notChecked'],
+  },
 });
 
 const GroceryList = mongoose.model('GroceryList', groceryListSchema);

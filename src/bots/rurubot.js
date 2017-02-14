@@ -2,7 +2,7 @@
 const Botkit = require('botkit');
 
 // start bot logic
-const controller = Botkit.slackbot({debug: true});
+const controller = Botkit.slackbot({debug: false});
 
 // bot instance
 const bot = controller.spawn({token: process.env.SALCKBOT_TOKEN}).startRTM();

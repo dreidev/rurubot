@@ -121,6 +121,7 @@ module.exports = function(controller) {
     }).catch(function(error) {
       console.log(error);
     });
+    // require('../develop')();
   });
 
   // FALLBACK to cleverbot
