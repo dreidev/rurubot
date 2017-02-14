@@ -5,6 +5,6 @@ const schedule = require('node-schedule');
 const workingDaysMoriningRule = new schedule.RecurrenceRule();
 workingDaysMoriningRule.dayOfWeek = [new schedule.Range(0, 4)];
 workingDaysMoriningRule.hour = 10;
-workingDaysMoriningRule.minute = 00;
+workingDaysMoriningRule.minute = 0;
 
 module.exports.workingDaysMoriningRule = workingDaysMoriningRule;
