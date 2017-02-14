@@ -25,10 +25,6 @@ module.exports.workingDaysMoriningPrivConvo = function(member) {
           },
         ], {});
 
-        convo.addMessage({
-          text: 'hello ${member.name}',
-        }, 'hello');
-
         convo.addQuestion({
           text: 'What are your working on today?',
         }, function() {}, 'what_are_you_working_on');
