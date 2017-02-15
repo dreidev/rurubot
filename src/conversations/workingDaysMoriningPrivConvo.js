@@ -25,7 +25,7 @@ function writeData(userID, list) {
 
 module.exports = function(member) {
   let memberCurrentDayTasks = [];
-  if (member.name === 'tokyo') {
+  if (member.name === 'tokyo' || member.name === 'sayegh') {
     bot.startPrivateConversation({
       user: member.id,
     }, (err, convo) => {
