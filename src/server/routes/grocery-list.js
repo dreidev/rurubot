@@ -58,4 +58,23 @@ router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
  })
 });
 
+/*
+|--------------------------------------------------------------------------
+| Post grocery list item
+|--------------------------------------------------------------------------
+*/
+
+router.post('/api/grocery-list/create', function(req, res) {
+  console.log(req);
+    GroceryListItem.create({
+      name: req.body.name,
+      state: req.body.state || 'notChecked',
+      user_id: req.body.user_id,
+    }).then(function (result) {
+      res.status(201).send(result._id);
+    }).catch(function (err) {
+      res.status(500).send({ message: err.message });
+    })
+  });
+
 module.exports = router
