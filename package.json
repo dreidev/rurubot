@@ -49,10 +49,15 @@
   "homepage": "https://github.com/dreidev/rurubot#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "body-parser": "^1.16.1",
     "botkit": "^0.4.10",
     "cleverbot.io": "^1.0.4",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
     "json-query": "^2.2.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.8.2",
+    "morgan": "^1.8.1",
     "node-schedule": "^1.2.0"
   },
   "devDependencies": {
