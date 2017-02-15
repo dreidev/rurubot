@@ -65,7 +65,6 @@ router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
 */
 
 router.post('/api/grocery-list/create', function(req, res) {
-  console.log(req);
     GroceryListItem.create({
       name: req.body.name,
       state: req.body.state || 'notChecked',
@@ -76,5 +75,43 @@ router.post('/api/grocery-list/create', function(req, res) {
       res.status(500).send({ message: err.message });
     })
   });
+
+/*
+|--------------------------------------------------------------------------
+| Update grocery list item
+|--------------------------------------------------------------------------
+*/
+
+router.put('/api/grocery-list/:id/check', function(req, res) {
+  GroceryListItem.findById(req.params.id).then((groceryListItem) => {
+    if(groceryListItem){
+      groceryListItem.state = 'checked';
+      groceryListItem.save();
+      console.log(groceryListItem);
+
+      res.sendStatus(200);
+    }else{
+      res.sendStatus(404);
+    }
+  })
+});
+
+/*
+|--------------------------------------------------------------------------
+| Update grocery list item
+|--------------------------------------------------------------------------
+*/
+
+router.put('/api/grocery-list/:id/uncheck', function(req, res) {
+  GroceryListItem.findById(req.params.id).then((groceryListItem) => {
+    if(groceryListItem){
+      groceryListItem.state = 'unChecked';
+      groceryListItem.save();
+      res.sendStatus(200);
+    }else{
+      res.sendStatus(404);
+    }
+  })
+});
 
 module.exports = router
