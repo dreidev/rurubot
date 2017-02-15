@@ -31,12 +31,28 @@ router.get('/api/grocery-list', function(req, res, next) {
 | Get grocery list items by state
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list/:state', function(req, res, next) {
+router.get('/api/grocery-list/state/:state', function(req, res, next) {
  GroceryListItem.find({'state': req.params.state}).then( function(groceryListItem) {
    if (!groceryListItem) {
      return res.status(404).send({message: "groceryListItem not found"})
    }
    res.send(groceryListItem)
+ }).catch( function(error) {
+   next(error)
+ })
+});
+
+/*
+|--------------------------------------------------------------------------
+| Get grocery list items by user
+|--------------------------------------------------------------------------
+*/
+router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
+ GroceryListItem.find({'user_id': req.params.user_id}).then( function(groceryListItems) {
+   if (!groceryListItems) {
+     return res.status(404).send({message: "groceryListItems not found"})
+   }
+   res.send(groceryListItems)
  }).catch( function(error) {
    next(error)
  })
