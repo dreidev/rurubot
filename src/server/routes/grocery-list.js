@@ -12,7 +12,7 @@ const axios = require('axios');
 
 /*
 |--------------------------------------------------------------------------
-| Get all daily tasks
+| Get all grocery list
 |--------------------------------------------------------------------------
 */
 router.get('/api/grocery-list', function(req, res, next) {
@@ -24,6 +24,22 @@ router.get('/api/grocery-list', function(req, res, next) {
  }).catch( function(error) {
    next(error)
  })
-})
+});
+
+/*
+|--------------------------------------------------------------------------
+| Get grocery list items by state
+|--------------------------------------------------------------------------
+*/
+router.get('/api/grocery-list/:state', function(req, res, next) {
+ GroceryListItem.find({'state': req.params.state}).then( function(groceryListItem) {
+   if (!groceryListItem) {
+     return res.status(404).send({message: "groceryListItem not found"})
+   }
+   res.send(groceryListItem)
+ }).catch( function(error) {
+   next(error)
+ })
+});
 
 module.exports = router
