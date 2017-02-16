@@ -39,4 +39,22 @@ router.get('/api/project/:id', (req, res, next) => {
   });
 });
 
+/*
+|--------------------------------------------------------------------------
+| Post project
+|--------------------------------------------------------------------------
+*/
+
+router.post('/api/project', (req, res) => {
+  Project.create({
+    name: req.body.name,
+    category: req.body.category,
+    client: req.body.client,
+  }).then((result) => {
+    res.status(201).send(result._id);
+  }).catch((err) => {
+    res.status(500).send({message: err.message});
+  });
+});
+
 module.exports = router;
