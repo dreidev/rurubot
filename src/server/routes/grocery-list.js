@@ -15,7 +15,7 @@ const axios = require('axios');
 | Get all grocery list
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list', function(req, res, next) {
+router.get('/api/grocery-list', (req, res, next) => {
  GroceryListItem.find().then((groceryListItem) => {
    if (!groceryListItem) {
      return res.status(404).send({message: 'not found'})
@@ -31,7 +31,7 @@ router.get('/api/grocery-list', function(req, res, next) {
 | Get grocery list item by id
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list/:id', function(req, res, next) {
+router.get('/api/grocery-list/:id', (req, res, next) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if(groceryListItem){
       res.status(201).send(groceryListItem);
@@ -47,7 +47,7 @@ router.get('/api/grocery-list/:id', function(req, res, next) {
 | Get grocery list items by state
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list/state/:state', function(req, res, next) {
+router.get('/api/grocery-list/state/:state',(req, res, next) => {
  GroceryListItem.find({'state': req.params.state}).then((groceryListItem) => {
    if (!groceryListItem) {
      return res.status(404).send({message: 'groceryListItem not found'})
@@ -63,7 +63,7 @@ router.get('/api/grocery-list/state/:state', function(req, res, next) {
 | Get grocery list items by user
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
+router.get('/api/grocery-list/user/:user_id', (req, res, next) => {
  GroceryListItem.find({'user_id': req.params.user_id}).then((groceryListItems) => {
    if (!groceryListItems) {
      return res.status(404).send({message: 'groceryListItems not found'})
@@ -80,7 +80,7 @@ router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
 |--------------------------------------------------------------------------
 */
 
-router.post('/api/grocery-list/create', function(req, res) {
+router.post('/api/grocery-list/create',(req, res) => {
     GroceryListItem.create({
       name: req.body.name,
       state: req.body.state || 'notChecked',
@@ -98,7 +98,7 @@ router.post('/api/grocery-list/create', function(req, res) {
 |--------------------------------------------------------------------------
 */
 
-router.put('/api/grocery-list/:id/check', function(req, res) {
+router.put('/api/grocery-list/:id/check', (req, res) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if(groceryListItem){
       groceryListItem.state = 'checked';
@@ -116,7 +116,7 @@ router.put('/api/grocery-list/:id/check', function(req, res) {
 |--------------------------------------------------------------------------
 */
 
-router.put('/api/grocery-list/:id/uncheck', function(req, res) {
+router.put('/api/grocery-list/:id/uncheck',(req, res) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if(groceryListItem){
       groceryListItem.state = 'unChecked';
