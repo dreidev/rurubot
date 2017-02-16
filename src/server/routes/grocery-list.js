@@ -1,11 +1,10 @@
 const router = require('express').Router();
 // const moment = require('moment');
-const fs = require('fs');
+// const fs = require('fs');
 // const jwt = require('jwt-simple');
-
 const config = require('../../../config/config');
 const GroceryListItem = require('../../models/grocery-list');
-const axios = require('axios');
+// const axios = require('axios');
 // const querystring = require('querystring');
 
 
