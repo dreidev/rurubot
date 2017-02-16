@@ -45,9 +45,9 @@ router.get('/api/project/:id', (req, res, next) => {
 |--------------------------------------------------------------------------
 */
 router.get('/api/project/name/:name', (req, res, next) => {
-  Project.find({name: req.params.name}).then((project) => {
-    if (project) {
-      res.status(200).send(project);
+  Project.find({name: req.params.name}).then((projects) => {
+    if (projects) {
+      res.status(200).send(projects);
     } else {
       res.sendStatus(404);
     }
