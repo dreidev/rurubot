@@ -34,7 +34,7 @@ router.get('/api/grocery-list', (req, res, next) => {
 router.get('/api/grocery-list/:id', (req, res, next) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if(groceryListItem){
-      res.status(201).send(groceryListItem);
+      res.status(200).send(groceryListItem);
     }else{
       res.sendStatus(404);
     }
