@@ -13,8 +13,6 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use(require('./routes/daily-tasks'));
 app.use(require('./routes/grocery-list'));
-// app.use(require('./routes/support'));
-// app.use(require('./routes/post'));
-// app.use(require('./routes/uploadFile'));
+app.use(require('./routes/project'));
 
 module.exports = app;
