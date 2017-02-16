@@ -5,7 +5,8 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon",
+    "server": "nodemon src/server/server.js",
     "test": "node_modules/.bin/eslint ."
   },
   "repository": {
