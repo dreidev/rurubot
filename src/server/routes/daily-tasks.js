@@ -24,7 +24,23 @@ router.get('/api/daily-tasks', function(req, res, next) {
  }).catch( function(error) {
    next(error)
  })
-})
+});
+
+/*
+|--------------------------------------------------------------------------
+| Get Daily task by user
+|--------------------------------------------------------------------------
+*/
+router.get('/api/daily-tasks/user/:id',(req, res, next) => {
+ DailyTasks.find({'user_id': req.params.id}).then((dailyTasks) => {
+   if (!dailyTasks) {
+     return res.status(404).send({message: 'daily tasks not found'})
+   }
+   res.send(dailyTasks)
+ }).catch((error) => {
+   next(error)
+ })
+});
 //
 // /*
 // |--------------------------------------------------------------------------
