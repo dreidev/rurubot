@@ -4,7 +4,6 @@ mongoose.Promise = Promise;
 const config = require('../../config/config');
 const app = require('./app');
 
-
 mongoose.connect(config.MONGO_URI);
 
 mongoose.connection.on('error', (err) => {
