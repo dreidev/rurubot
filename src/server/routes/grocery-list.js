@@ -17,11 +17,11 @@ const GroceryListItem = require('../../models/grocery-list');
 router.get('/api/grocery-list', (req, res, next) => {
  GroceryListItem.find().then((groceryListItem) => {
    if (!groceryListItem) {
-     return res.status(404).send({message: 'not found'})
+     return res.status(404).send({message: 'not found'});
    }
-   res.send(groceryListItem)
+   res.send(groceryListItem);
  }).catch( function(error) {
-   next(error)
+   next(error);
  })
 });
 
@@ -32,9 +32,9 @@ router.get('/api/grocery-list', (req, res, next) => {
 */
 router.get('/api/grocery-list/:id', (req, res, next) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
-    if(groceryListItem){
+    if (groceryListItem) {
       res.status(200).send(groceryListItem);
-    }else{
+    } else {
       res.sendStatus(404);
     }
   });
@@ -49,11 +49,11 @@ router.get('/api/grocery-list/:id', (req, res, next) => {
 router.get('/api/grocery-list/state/:state',(req, res, next) => {
  GroceryListItem.find({'state': req.params.state}).then((groceryListItem) => {
    if (!groceryListItem) {
-     return res.status(404).send({message: 'groceryListItem not found'})
+     return res.status(404).send({message: 'groceryListItem not found'});
    }
-   res.send(groceryListItem)
+   res.send(groceryListItem);
  }).catch((error) => {
-   next(error)
+   next(error);
  })
 });
 
@@ -65,11 +65,11 @@ router.get('/api/grocery-list/state/:state',(req, res, next) => {
 router.get('/api/grocery-list/user/:user_id', (req, res, next) => {
  GroceryListItem.find({'user_id': req.params.user_id}).then((groceryListItems) => {
    if (!groceryListItems) {
-     return res.status(404).send({message: 'groceryListItems not found'})
+     return res.status(404).send({message: 'groceryListItems not found'});
    }
-   res.send(groceryListItems)
+   res.send(groceryListItems);
  }).catch((error) => {
-   next(error)
+   next(error);
  })
 });
 
