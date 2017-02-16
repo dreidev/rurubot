@@ -16,9 +16,9 @@ const axios = require('axios');
 |--------------------------------------------------------------------------
 */
 router.get('/api/grocery-list', function(req, res, next) {
- GroceryListItem.find().then( function(groceryListItem) {
+ GroceryListItem.find().then((groceryListItem) => {
    if (!groceryListItem) {
-     return res.status(404).send({message: "not found"})
+     return res.status(404).send({message: 'not found'})
    }
    res.send(groceryListItem)
  }).catch( function(error) {
@@ -28,16 +28,32 @@ router.get('/api/grocery-list', function(req, res, next) {
 
 /*
 |--------------------------------------------------------------------------
+| Get grocery list item by id
+|--------------------------------------------------------------------------
+*/
+router.get('/api/grocery-list/:id', function(req, res, next) {
+  GroceryListItem.findById(req.params.id).then((groceryListItem) => {
+    if(groceryListItem){
+      res.status(201).send(groceryListItem);
+    }else{
+      res.sendStatus(404);
+    }
+  });
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | Get grocery list items by state
 |--------------------------------------------------------------------------
 */
 router.get('/api/grocery-list/state/:state', function(req, res, next) {
- GroceryListItem.find({'state': req.params.state}).then( function(groceryListItem) {
+ GroceryListItem.find({'state': req.params.state}).then((groceryListItem) => {
    if (!groceryListItem) {
-     return res.status(404).send({message: "groceryListItem not found"})
+     return res.status(404).send({message: 'groceryListItem not found'})
    }
    res.send(groceryListItem)
- }).catch( function(error) {
+ }).catch((error) => {
    next(error)
  })
 });
@@ -48,12 +64,12 @@ router.get('/api/grocery-list/state/:state', function(req, res, next) {
 |--------------------------------------------------------------------------
 */
 router.get('/api/grocery-list/user/:user_id', function(req, res, next) {
- GroceryListItem.find({'user_id': req.params.user_id}).then( function(groceryListItems) {
+ GroceryListItem.find({'user_id': req.params.user_id}).then((groceryListItems) => {
    if (!groceryListItems) {
-     return res.status(404).send({message: "groceryListItems not found"})
+     return res.status(404).send({message: 'groceryListItems not found'})
    }
    res.send(groceryListItems)
- }).catch( function(error) {
+ }).catch((error) => {
    next(error)
  })
 });
@@ -69,9 +85,9 @@ router.post('/api/grocery-list/create', function(req, res) {
       name: req.body.name,
       state: req.body.state || 'notChecked',
       user_id: req.body.user_id,
-    }).then(function (result) {
+    }).then((result) => {
       res.status(201).send(result._id);
-    }).catch(function (err) {
+    }).catch((err) => {
       res.status(500).send({ message: err.message });
     })
   });
@@ -87,8 +103,6 @@ router.put('/api/grocery-list/:id/check', function(req, res) {
     if(groceryListItem){
       groceryListItem.state = 'checked';
       groceryListItem.save();
-      console.log(groceryListItem);
-
       res.sendStatus(200);
     }else{
       res.sendStatus(404);
