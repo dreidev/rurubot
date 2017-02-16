@@ -15,13 +15,13 @@ const DailyTasks = require('../../models/daily-tasks');
 | Get all daily tasks
 |--------------------------------------------------------------------------
 */
-router.get('/api/daily-tasks', function(req, res, next) {
+router.get('/api/daily-tasks', (req, res, next) => {
  DailyTasks.find().then( function(dailyTasks) {
    if (!dailyTasks) {
      return res.status(404).send({message: "User not found"})
    }
    res.send(dailyTasks)
- }).catch( function(error) {
+ }).catch((error) => {
    next(error)
  })
 });
