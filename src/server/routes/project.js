@@ -23,4 +23,20 @@ router.get('/api/projects', (req, res, next) => {
   });
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Get project by id
+|--------------------------------------------------------------------------
+*/
+router.get('/api/project/:id', (req, res, next) => {
+  Project.findById(req.params.id).then((project) => {
+    if (project) {
+      res.status(200).send(project);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
 module.exports = router;
