@@ -3,12 +3,10 @@ const router = require('express').Router();
 // const fs = require('fs');
 // const jwt = require('jwt-simple');
 
-const config = require('../../../config/config');
+// const config = require('../../../config/config');
 const DailyTasks = require('../../models/daily-tasks');
 // const axios = require('axios');
 // const querystring = require('querystring');
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +14,14 @@ const DailyTasks = require('../../models/daily-tasks');
 |--------------------------------------------------------------------------
 */
 router.get('/api/daily-tasks', (req, res, next) => {
- DailyTasks.find().then( function(dailyTasks) {
-   if (!dailyTasks) {
-     return res.status(404).send({message: 'User not found'});
-   }
-   res.send(dailyTasks);
- }).catch((error) => {
-   next(error);
- })
+  DailyTasks.find().then(function(dailyTasks) {
+    if (!dailyTasks) {
+      return res.status(404).send({message: 'User not found'});
+    }
+    res.send(dailyTasks);
+  }).catch((error) => {
+    next(error);
+  });
 });
 
 /*
@@ -31,15 +29,15 @@ router.get('/api/daily-tasks', (req, res, next) => {
 | Get Daily task by user
 |--------------------------------------------------------------------------
 */
-router.get('/api/daily-tasks/user/:id',(req, res, next) => {
- DailyTasks.find({'user_id': req.params.id}).then((dailyTasks) => {
-   if (!dailyTasks) {
-     return res.status(404).send({message: 'daily tasks not found'});
-   }
-   res.send(dailyTasks);
- }).catch((error) => {
-   next(error);
- })
+router.get('/api/daily-tasks/user/:id', (req, res, next) => {
+  DailyTasks.find({'user_id': req.params.id}).then((dailyTasks) => {
+    if (!dailyTasks) {
+      return res.status(404).send({message: 'daily tasks not found'});
+    }
+    res.send(dailyTasks);
+  }).catch((error) => {
+    next(error);
+  });
 });
 
-module.exports = router
+module.exports = router;
