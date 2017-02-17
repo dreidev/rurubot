@@ -12,14 +12,13 @@ module.exports = {
   },
   timeFormatter: function(time) {
     if (time < 60) {
-      return time + " seconds";
+      return time + ' seconds';
     } else if (time > 60 && time < 3600) {
-      return Math.floor(time / 60) + " minutes and " + Math.floor(time%60) + " seconds";
+      return Math.floor(time / 60) + ' minutes and ' + Math.floor(time%60) + ' seconds';
     } else {
-      var hours = Math.floor(time / 3600);
-      var minutes = Math.floor((time%3600) / 60);
-      return hours + " hours, " + minutes + " minutes and " + Math.floor(time%(60)) + " seconds";
+      let hours = Math.floor(time / 3600);
+      let minutes = Math.floor((time%3600) / 60);
+      return hours + ' hours, ' + minutes + ' minutes and ' + Math.floor(time%(60)) + ' seconds';
     }
-
   },
 };
