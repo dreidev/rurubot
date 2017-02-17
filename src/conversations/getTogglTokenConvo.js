@@ -2,10 +2,8 @@
 
 const rurubot = require('../bots/rurubot');
 // get rurobot bot instance
+const togglTokens = require('../models/toggl-token');
 const bot = rurubot.bot;
-const Datastore = require('nedb');
-const homeDir = require('home-dir');
-const db = new Datastore({filename: '../keys.db', autoload: true});
 
 module.exports = function(message) {
   bot.startConversation(message, (err, convo) => {
@@ -39,11 +37,10 @@ module.exports = function(message) {
       }, {'key': 'apiToken'}); // store the results in a field called nickname
       convo.on('end', (convo) => {
         if (convo.status == 'completed') {
-          let doc = {togglToken: convo.extractResponse('apiToken'), user: message.user};
-          db.insert(doc, function(err, newDoc) { // Callback is optional
+          let doc = {token: convo.extractResponse('apiToken'), user: message.user};
+          togglTokens.create(doc, function(err, newDoc) { // Callback is optional
               if (err) throw err;
               bot.reply(message, 'Got it. You can time yourself with Toggl now.');
-              console.log(newDoc);
           });
         } else {
           // this happens if the conversation ended prematurely for some reason

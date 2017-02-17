@@ -51,10 +51,8 @@
     "axios": "^0.15.3",
     "botkit": "^0.4.10",
     "cleverbot.io": "^1.0.4",
-    "home-dir": "^1.0.0",
     "json-query": "^2.2.0",
     "mongoose": "^4.8.2",
-    "nedb": "^1.8.0",
     "node-schedule": "^1.2.0",
     "toggl-api": "^1.0.1"
   },

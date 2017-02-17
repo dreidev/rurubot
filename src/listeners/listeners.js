@@ -1,5 +1,5 @@
 'usestrict';
-module.exports = function(controller, db) {
+module.exports = function(controller) {
   // my-name-is listener
   require('./my-name-is-listener')(controller);
   // who-am-i-listener listener
@@ -7,9 +7,9 @@ module.exports = function(controller, db) {
   // testing listener
   require('./testruru-listener')(controller);
   // toggl start listener
-  require('./toggl-start-listener')(controller, db);
+  require('./toggl-start-listener')(controller);
   // toggl stop listener
-  require('./toggl-stop-listener')(controller, db);
+  require('./toggl-stop-listener')(controller);
   // grocery-list listener
   require('./grocery-list-listener')(controller);
   // private listeners
