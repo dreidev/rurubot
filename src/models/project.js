@@ -4,11 +4,11 @@ mongoose.Promise = Promise;
 let projectSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: 'noname'
+    default: 'noname',
   },
   category: {
     type: String,
-    default: 'web'
+    default: 'web',
   },
   date_added: {
     type: Date,
@@ -21,7 +21,7 @@ let projectSchema = new mongoose.Schema({
   },
   client: {
     type: String,
-  }
+  },
 });
 
 projectSchema.index({name: 1, category: 1}, {unique: true});
