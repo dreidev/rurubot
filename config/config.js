@@ -8,5 +8,6 @@ module.exports = {
   CLIENT_SECRET: process.env.CLIENT_SECRET,
   VERIFICATION_TOKEN: process.env.VERIFICATION_TOKEN,
   WORDSAPI_API_KEY: process.env.WORDSAPI_API_KEY,
+  SERVER_PORT: process.env.SERVER_PORT || 3000,
   PORT: 4820,
 };
