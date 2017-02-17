@@ -6,6 +6,10 @@ module.exports = function(controller) {
   require('./who-am-i-listener')(controller);
   // testing listener
   require('./testruru-listener')(controller);
+  // toggl start listener
+  require('./toggl-start-listener')(controller);
+  // toggl stop listener
+  require('./toggl-stop-listener')(controller);
   // grocery-list listener
   require('./grocery-list-listener')(controller);
   // private listeners
