@@ -26,7 +26,7 @@ module.exports = function(controller) {
       toggl.startTimeEntry({
         description: task,
         billable: false,
-      }, function(err, timeEntry) {
+      }, (err, timeEntry) => {
         mongoose.disconnect();
         // handle error
         if (!err) return bot.reply(message, 'Okay, I started a timer for ' + task);
