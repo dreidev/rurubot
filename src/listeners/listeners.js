@@ -8,6 +8,8 @@ module.exports = function(controller) {
   require('./toggl-start-listener')(controller);
   // toggl stop listener
   require('./toggl-stop-listener')(controller);
+  // dreidev address listener
+  require('./dreidev-address-listener')(controller);
   // grocery-list listener
   require('./grocery-list-listener')(controller);
   // private listeners
