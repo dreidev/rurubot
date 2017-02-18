@@ -71,31 +71,31 @@ router.get('/api/users/slack/:id', (req, res, next) => {
 // });
 //
 
-// /*
-//  |--------------------------------------------------------------------------
-//  | Log in with Email
-//  |--------------------------------------------------------------------------
-//  */
-// router.post('/api/auth/login', function(req, res) {
-//   User.findOne({email: req.body.email }, '+password', function(err, user) {
-//     if (!user) {
-//       return res.status(401).send({message: 'Invalid email and/or password' });
-//     }
-//     user.comparePassword(req.body.password, function(err, isMatch) {
-//       if (!isMatch) {
-//         return res.status(401).send({message: 'Invalid email and/or password' });
-//       }
-//       res.send({token: Auth.createJWT(user) });
-//     });
-//   });
-// });
-//
+/*
+ |--------------------------------------------------------------------------
+ | Log in with Email
+ |--------------------------------------------------------------------------
+ */
+router.post('/api/auth/login', (req, res) => {
+  User.findOne({email: req.body.email}, '+password', (err, user) => {
+    if (!user) {
+      return res.status(401).send({message: 'Invalid email and/or password'});
+    }
+    user.comparePassword(req.body.password, function(err, isMatch) {
+      if (!isMatch) {
+        return res.status(401).send({message: 'Invalid email and/or password'});
+      }
+      res.send({token: Auth.createJWT(user)});
+    });
+  });
+});
+
 /*
  |--------------------------------------------------------------------------
  | Create Email and Password Account
  |--------------------------------------------------------------------------
  */
-router.post('/api/auth/signup', function(req, res) {
+router.post('/api/auth/signup', (req, res) => {
   User.findOne({email: req.body.email}, (err, existingUser) => {
     if (existingUser) {
       return res.status(409).send({message: 'Email is already taken'});
