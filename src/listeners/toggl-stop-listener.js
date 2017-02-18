@@ -26,10 +26,10 @@ module.exports = function(controller) {
       let splitMessage = message.text.split(' ');
       splitMessage.splice(0, 3);
       let task = splitMessage.join(' ');
-      toggl.getCurrentTimeEntry(function(err, data) {
+      toggl.getCurrentTimeEntry((err, data) => {
         if (!data) return bot.reply(message, 'I could not find that task');
 
-        toggl.stopTimeEntry(data.id, function(err, stopTimeEntry) {
+        toggl.stopTimeEntry(data.id, (err, stopTimeEntry) => {
           mongoose.disconnect();
           // handle error
           if (err) return bot.reply(message, 'I could not find that task');
