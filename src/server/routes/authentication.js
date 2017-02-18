@@ -35,7 +35,8 @@ function ensureAuthenticated(req, res, next) {
  */
 function createJWT(user) {
   const payload = {
-    user_id: user.slack_id,
+    user_id: user._id,
+    slack_id: user.slack_id,
     user_level: user.user_level,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix(),

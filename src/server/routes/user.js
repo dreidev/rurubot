@@ -4,95 +4,45 @@ const router = require('express').Router();
 // const jwt = require('jwt-simple');
 //
 // const config = require('../config/config');
-// const User = require('../models/user');
+const User = require('../models/user');
 // const Auth = require('../routes/authentication');
 // const axios = require('axios');
 // const querystring = require('querystring');
 
 
-// /*
-// |--------------------------------------------------------------------------
-// | Get user by ID
-// |--------------------------------------------------------------------------
-// */
-// router.get('/api/users/:id', function(req, res, next) {
-//  User.findById(req.params.id).then( function(user) {
-//    if (!user) {
-//      return res.status(404).send({message: "User not found"})
-//    }
-//    res.send(user)
-//  }).catch( function(error) {
-//    next(error)
-//  })
-// })
-//
-// /*
-// |--------------------------------------------------------------------------
-// | Get all creators
-// |--------------------------------------------------------------------------
-// */
-// router.get('/api/creators', function(req, res, next) {
-//   User.find({user_status:'creator' }).then( function(users) {
-//     if (!users) {
-//       return res.status(404).send({message: "There are no users"})
-//     }
-//     res.send(users)
-//   }).catch( function(error) {
-//     next(error)
-//   })
-// });
-// /*
-// |--------------------------------------------------------------------------
-// | Get user by creator tag
-// |--------------------------------------------------------------------------
-// */
-// router.get('/api/creators/:creator_tag', function(req, res, next) {
-//  User.findOne({'creator.creator_tag': req.params.creator_tag}).then( function(user) {
-//    if (!user) {
-//      return res.status(404).send({message: "Creator not found"})
-//    }
-//    res.send(user)
-//  }).catch( function(error) {
-//    next(error)
-//  })
-// });
-//
-// /*
-// |--------------------------------------------------------------------------
-// | Check if email exists
-// |--------------------------------------------------------------------------
-// */
-// router.get('/api/users/emailExists/:email', function(req, res, next) {
-//  User.findOne({'email': req.params.email}).then( function(user) {
-//    if (!user) {
-//      res.send({exists: false})
-//    }
-//    else {
-//      res.send({exists: true})
-//    }
-//  }).catch( function(error) {
-//    next(error)
-//  })
-// });
-//
-// /*
-// |--------------------------------------------------------------------------
-// | Check if tag exists
-// |--------------------------------------------------------------------------
-// */
-// router.get('/api/users/tagExists/:tag', function(req, res, next) {
-//  User.findOne({'creator.creator_tag': req.params.tag}).then( function(user) {
-//    if (!user) {
-//      res.send({exists: false})
-//    }
-//    else {
-//      res.send({exists: true})
-//    }
-//  }).catch( function(error) {
-//    next(error)
-//  })
-// });
-//
+/*
+|--------------------------------------------------------------------------
+| Get user by ID
+|--------------------------------------------------------------------------
+*/
+router.get('/api/users/:id', (req, res, next) => {
+  User.findById(req.params.id).then((user) => {
+   if (!user) {
+     return res.status(404).send({message: 'User not found'});
+   }
+   res.send(user);
+  }).catch((error) => {
+   next(error);
+  });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Get user by Slack ID
+|--------------------------------------------------------------------------
+*/
+router.get('/api/users/slack/:id', (req, res, next) => {
+  User.find({slack_id: req.params.id}).then((user) => {
+   if (!user) {
+     return res.status(404).send({message: 'User not found'});
+   }
+   res.send(user);
+  }).catch((error) => {
+   next(error);
+  });
+});
+
+
 // /*
 //  |--------------------------------------------------------------------------
 //  | GET /api/me
@@ -120,29 +70,7 @@ const router = require('express').Router();
 //     })
 // });
 //
-// /*
-//  |--------------------------------------------------------------------------
-//  | PUT /api/me/becomeACreator
-//  |--------------------------------------------------------------------------
-//  */
-// router.put('/api/me/becomeACreator', Auth.ensureAuthenticated, function(req, res) {
-// let updatedUser = null;
-// User.findOne({'creator.creator_tag': req.body.creator.creator_tag}).then(function(user){
-//   if(user) {
-//     return res.status(409).send({ message: 'Tag is already taken' });
-//   }
-//   else {
-//     User.findById(req.user_id).exec().then(function(user) {
-//       updatedUser = Object.assign(user,req.body)
-//       return user.update(req.body);
-//     }).then( function(user) {
-//       res.status(200).send(updatedUser);
-//     })
-//   }
-// })
-// });
-//
-//
+
 // /*
 //  |--------------------------------------------------------------------------
 //  | Log in with Email
