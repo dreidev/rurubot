@@ -1,14 +1,6 @@
 const router = require('express').Router();
-// const moment = require('moment');
-// const fs = require('fs');
-// const jwt = require('jwt-simple');
-//
-// const config = require('../config/config');
 const User = require('../models/user');
 const Auth = require('../routes/authentication');
-// const axios = require('axios');
-// const querystring = require('querystring');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +9,12 @@ const Auth = require('../routes/authentication');
 */
 router.get('/api/users/:id', (req, res, next) => {
   User.findById(req.params.id).then((user) => {
-   if (!user) {
-     return res.status(404).send({message: 'User not found'});
-   }
-   res.send(user);
+    if (!user) {
+      return res.status(404).send({message: 'User not found'});
+    }
+    res.send(user);
   }).catch((error) => {
-   next(error);
+    next(error);
   });
 });
 
@@ -33,43 +25,40 @@ router.get('/api/users/:id', (req, res, next) => {
 */
 router.get('/api/users/slack/:id', (req, res, next) => {
   User.find({slack_id: req.params.id}).then((user) => {
-   if (!user) {
-     return res.status(404).send({message: 'User not found'});
-   }
-   res.send(user);
+    if (!user) {
+      return res.status(404).send({message: 'User not found'});
+    }
+    res.send(user);
   }).catch((error) => {
-   next(error);
+    next(error);
   });
 });
 
+/*
+ |--------------------------------------------------------------------------
+ | GET /api/me
+ |--------------------------------------------------------------------------
+ */
+router.get('/api/me', Auth.ensureAuthenticated, (req, res) => {
+  User.findById(req.user_id, (err, user) => {
+    res.send(user);
+  });
+});
 
-// /*
-//  |--------------------------------------------------------------------------
-//  | GET /api/me
-//  |--------------------------------------------------------------------------
-//  */
-// router.get('/api/me', Auth.ensureAuthenticated, function(req, res) {
-//   User.findById(req.user_id, function(err, user) {
-//     res.send(user);
-//   });
-// });
-//
-//   /*
-//    |--------------------------------------------------------------------------
-//    | PUT /api/me
-//    |--------------------------------------------------------------------------
-//    */
-// router.put('/api/me', Auth.ensureAuthenticated, function(req, res) {
-//   console.log('here');
-//   let updatedUser = null;
-//     User.findById(req.user_id).exec().then(function(user) {
-//       updatedUser = Object.assign(user,req.body)
-//       return user.update(req.body);
-//     }).then( function(user) {
-//       res.status(200).send(updatedUser);
-//     })
-// });
-//
+/*
+   |--------------------------------------------------------------------------
+   | PUT /api/me
+   |--------------------------------------------------------------------------
+   */
+router.put('/api/me', Auth.ensureAuthenticated, (req, res) => {
+  let updatedUser = null;
+  User.findById(req.user_id).exec().then((user) => {
+    updatedUser = Object.assign(user, req.body);
+    return user.update(req.body);
+  }).then((user) => {
+    res.status(200).send(updatedUser);
+  });
+});
 
 /*
  |--------------------------------------------------------------------------
@@ -77,11 +66,13 @@ router.get('/api/users/slack/:id', (req, res, next) => {
  |--------------------------------------------------------------------------
  */
 router.post('/api/auth/login', (req, res) => {
-  User.findOne({email: req.body.email}, '+password', (err, user) => {
+  User.findOne({
+    email: req.body.email,
+  }, '+password', (err, user) => {
     if (!user) {
       return res.status(401).send({message: 'Invalid email and/or password'});
     }
-    user.comparePassword(req.body.password, function(err, isMatch) {
+    user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch) {
         return res.status(401).send({message: 'Invalid email and/or password'});
       }
@@ -96,13 +87,15 @@ router.post('/api/auth/login', (req, res) => {
  |--------------------------------------------------------------------------
  */
 router.post('/api/auth/signup', (req, res) => {
-  User.findOne({email: req.body.email}, (err, existingUser) => {
+  User.findOne({
+    email: req.body.email,
+  }, (err, existingUser) => {
     if (existingUser) {
       return res.status(409).send({message: 'Email is already taken'});
     }
     let user = new User(req.body);
     // user.profile_photo = `/static/user-profile-default.svg`
-    user.save(function(err, result) {
+    user.save((err, result) => {
       if (err) {
         res.status(500).send({message: err.message});
       }
