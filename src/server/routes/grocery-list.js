@@ -77,7 +77,7 @@ router.get('/api/grocery-list/user/:user_id', (req, res, next) => {
 |--------------------------------------------------------------------------
 */
 
-router.post('/api/grocery-list/create', (req, res) => {
+router.post('/api/grocery-list', (req, res) => {
   GroceryListItem.create({
     name: req.body.name,
     state: req.body.state || 'notChecked',
