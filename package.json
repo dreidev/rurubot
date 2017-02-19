@@ -8,7 +8,7 @@
     "deploy": "(pm2 delete rurubot && false) || pm2 start --silent index.js --name rurubot && pm2 save",
     "start": "nodemon",
     "server": "nodemon src/server/server.js",
-    "test": "node_modules/.bin/eslint ."
+    "test": "node_modules/.bin/eslint . && _mocha src/**/*-spec.js -R spec --ui bdd"
   },
   "repository": {
     "type": "git",

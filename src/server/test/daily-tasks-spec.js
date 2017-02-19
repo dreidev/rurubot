@@ -4,7 +4,7 @@ const {clearDB} = require(`./setup.js`);
 // const mongoose = require(`mongoose`);
 const assert = require(`chai`).assert;
 
-const test = require(`supertest-as-promised`)(require(`bluebird`))(app);
+const test = require(`supertest`)(app);
 
 // eslint-disable-next-line
 describe(`Post API`, function() {

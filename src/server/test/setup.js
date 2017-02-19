@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const {MONGO_TEST_URI} = require('../config/config');
+const {MONGO_TEST_URI} = require('../../../config/config');
+
 mongoose.Promise = Promise;
 mongoose.connection.on('error', function() {
   console.log('error');
