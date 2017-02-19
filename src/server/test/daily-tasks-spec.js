@@ -13,13 +13,13 @@ describe(`Post API`, function() {
   // eslint-disable-next-line
   describe(`Daily Tasks Retrieval`, () => {
     // eslint-disable-next-line
-    it(`should return a list of daily tasks`, done => {
-      test.get(`/api/daily-tasks`)
+    it(`should return a list of daily tasks`, () => {
+      return test.get(`/api/daily-tasks`)
       // .set('Authorization', `JWT ${token}`)
         .expect(200).then(({body}) => {
         assert.isArray(body);
         // assert.equal(body[0].title, title)
-      }). finally(done);
+      });
     });
   });
 });

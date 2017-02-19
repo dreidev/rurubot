@@ -7,9 +7,9 @@ mongoose.connection.on('error', function() {
 });
 
 function clearDB(done) {
-  mongoose.connection.collections.forEach((i) => {
+  for (let i = 0; i < mongoose.connection.collections.length; i++) {
     mongoose.connection.collections[i].remove(()=>{});
-  });
+  }
   return done();
 }
 
