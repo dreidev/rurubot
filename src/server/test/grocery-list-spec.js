@@ -23,10 +23,21 @@ describe(`Grocery List API`, function() {
   }).catch();
 });
   // eslint-disable-next-line
-  describe(`Daily Tasks Retrieval`, () => {
+  describe(`Grocery List Retrieval`, () => {
     // eslint-disable-next-line
     it(`should return a list of grocery list items`, () => {
       return test.get(`/api/grocery-list`)
+        .expect(200).then(({body}) => {
+        assert.isArray(body);
+        assert.equal(body[0].name, 'milk');
+      });
+    });
+  });
+  // eslint-disable-next-line
+  describe(`Daily Tasks Retrieval (not checked)`, () => {
+    // eslint-disable-next-line
+    it(`should return a list of unchecked grocery list items`, () => {
+      return test.get(`/api/grocery-list/state/notChecked`)
         .expect(200).then(({body}) => {
         assert.isArray(body);
         assert.equal(body[0].name, 'milk');
