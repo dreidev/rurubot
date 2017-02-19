@@ -39,7 +39,6 @@ module.exports = function(message) {
       });
       // store the results in a field called nickname
       convo.on('end', (convo) => {
-             console.log("USER", convo.context.user);
         if(convo.status == 'completed') {
           const cryptrInstance = new Cryptr(convo.context.user);
           const hash = cryptrInstance.encrypt(convo.extractResponse('apiToken'));
@@ -56,9 +55,8 @@ module.exports = function(message) {
           // this happens if the conversation ended prematurely for some reason
           bot.reply(message, 'OK, nevermind!');
           mongoose.disconnect();
-
-        }
-      });
+   }
+});
     }
   });
 };

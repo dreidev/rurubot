@@ -16,11 +16,11 @@ module.exports = function(controller) {
     togglTokens.find({
       user: message.user,
     }, (err, data) => {
-           if (err){
+           if (err) {
              mongoose.disconnect();
              throw err;
            }
-           if (!data || data.length === 0){
+           if (!data || data.length === 0) {
                 return Conversations.getTogglTokenConvo(message);
            }
       const toggl = new TogglClient({
