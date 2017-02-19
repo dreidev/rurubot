@@ -68,6 +68,7 @@
   "devDependencies": {
     "dotenv": "^4.0.0",
     "eslint": "^3.15.0",
-    "eslint-config-dreidev": "^0.1.0"
+    "eslint-config-dreidev": "^0.1.0",
+    "pm2": "^2.4.0"
   }
 }
