@@ -1,13 +1,14 @@
 'usestrict';
-
 const rurubot = require('../bots/rurubot');
 // get rurobot bot instance
 const togglTokens = require('../models/toggl-token');
 const bot = rurubot.bot;
-
+const mongoose = require('mongoose');
+// crypt
+const Cryptr = require('cryptr');
 module.exports = function(message) {
   bot.startConversation(message, (err, convo) => {
-    if (!err) {
+    if(!err) {
       convo.say('I do not have your toggl token yet though');
       convo.ask('Could I have it please?', (response, convo) => {
         convo.ask('Is your token `' + response.text + '`?', [
@@ -32,19 +33,30 @@ module.exports = function(message) {
             },
           },
         ]);
-
         convo.next();
-      }, {'key': 'apiToken'}); // store the results in a field called nickname
+      }, {
+        'key': 'apiToken',
+      });
+      // store the results in a field called nickname
       convo.on('end', (convo) => {
-        if (convo.status == 'completed') {
-          let doc = {token: convo.extractResponse('apiToken'), user: message.user};
+             console.log("USER", convo.context.user);
+        if(convo.status == 'completed') {
+          const cryptrInstance = new Cryptr(convo.context.user);
+          const hash = cryptrInstance.encrypt(convo.extractResponse('apiToken'));
+          let doc = {
+            token: hash,
+            user: message.user,
+          };
           togglTokens.create(doc, function(err, newDoc) { // Callback is optional
-              if (err) throw err;
-              bot.reply(message, 'Got it. You can time yourself with Toggl now.');
+                 mongoose.disconnect();
+            if(err) throw err;
+            bot.reply(message, 'Got it. You can time yourself with Toggl now.');
           });
         } else {
           // this happens if the conversation ended prematurely for some reason
           bot.reply(message, 'OK, nevermind!');
+          mongoose.disconnect();
+
         }
       });
     }
