@@ -5,6 +5,7 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
+    "deploy": "(pm2 delete rurubot && false) || pm2 start --silent index.js --name rurubot && pm2 save",
     "start": "nodemon",
     "server": "nodemon src/server/server.js",
     "test": "node_modules/.bin/eslint ."
@@ -67,6 +68,7 @@
   "devDependencies": {
     "dotenv": "^4.0.0",
     "eslint": "^3.15.0",
-    "eslint-config-dreidev": "^0.1.0"
+    "eslint-config-dreidev": "^0.1.0",
+    "pm2": "^2.4.0"
   }
 }
