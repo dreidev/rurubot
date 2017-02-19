@@ -1,5 +1,6 @@
 module.exports = {
   MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost:27017/rurubot',
+  MONGO_TEST_URI: process.env.MONGO_TEST_URI || `mongodb://localhost:27017/rurubot_test`,
   CLEVERBOT_API_USER: process.env.CLEVERBOT_API_USER,
   CLEVERBOT_API_KEY: process.env.CLEVERBOT_API_KEY,
   SALCKBOT_TOKEN: process.env.SALCKBOT_TOKEN,
