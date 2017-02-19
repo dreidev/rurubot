@@ -9,6 +9,7 @@ module.exports = function(controller) {
   ], 'direct_message,direct_mention,mention', (bot, message) => {
       API.getMembersList().then((response) => {
           const members = response.data.members;
+          console.log(members);
           members.forEach((member) => {
               Conversations.workingDaysMoriningPrivConvo(member);
           });

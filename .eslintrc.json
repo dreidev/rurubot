@@ -11,6 +11,7 @@
     "require-jsdoc": 0,
     "new-cap": 1,
     "no-console": 0,
+    "no-invalid-this": 0,
     "max-len": [2, {
       "code": 120,
       "tabWidth": 2,
