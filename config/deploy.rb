@@ -13,7 +13,7 @@ set :branch, :master
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
-set :deploy_to, '/root/dreibot'
+set :deploy_to, '/root/rurubot'
 
 # Default value for :scm is :git
 # set :scm, :git

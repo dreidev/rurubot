@@ -5,6 +5,7 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
+    "deploy": "(pm2 delete rurubot && false) || pm2 start --silent slack_bot.js --name rurubot && pm2 save",
     "start": "nodemon",
     "server": "nodemon src/server/server.js",
     "test": "node_modules/.bin/eslint ."
