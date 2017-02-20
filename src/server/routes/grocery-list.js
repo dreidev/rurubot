@@ -116,7 +116,7 @@ router.put('/api/grocery-list/:id/check', (req, res) => {
 router.put('/api/grocery-list/:id/uncheck', (req, res) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if (groceryListItem) {
-      groceryListItem.state = 'unChecked';
+      groceryListItem.state = 'notChecked';
       groceryListItem.save();
       res.sendStatus(200);
     } else {

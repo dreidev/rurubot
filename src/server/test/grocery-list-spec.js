@@ -39,7 +39,7 @@ describe(`Grocery List API`, function() {
       }).catch();
     });
     // eslint-disable-next-line
-    it(`should return a list of unchecked grocery list items`, () => {
+    it(`should return a list of notChecked grocery list items`, () => {
       return test.get(`/api/grocery-list/state/notChecked`).expect(200).then(({body}) => {
         assert.isArray(body);
         assert.equal(body[0].state, 'notChecked');
@@ -101,7 +101,7 @@ describe(`Grocery List API`, function() {
       return test.put(`/api/grocery-list/${_id}/check`).expect(200);
     });
     // eslint-disable-next-line
-    it(`should update the state of the grocery list item to unchecked`, () => {
+    it(`should update the state of the grocery list item to notChecked`, () => {
       return test.put(`/api/grocery-list/${_id}/uncheck`).expect(200);
     });
   });
