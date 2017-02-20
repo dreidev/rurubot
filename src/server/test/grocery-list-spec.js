@@ -106,4 +106,26 @@ describe(`Grocery List API`, function() {
       });
     });
   });
+  // eslint-disable-next-line
+  describe(`Daily Tasks Update`, () => {
+    let _id;
+    // eslint-disable-next-line
+    before((done) => {
+      let user_id = `U0U05G6JZ`;
+      let name = ['milk'];
+      test.post(`/api/grocery-list`).send({
+        user_id,
+        name,
+      })
+      .then((res) => {
+        _id = res.body;
+        done();
+      }).catch();
+    });
+    // eslint-disable-next-line
+    it(`should return a list of unchecked grocery list items`, () => {
+      return test.put(`/api/grocery-list/${_id}/check`)
+        .expect(200);
+    });
+  });
 });
