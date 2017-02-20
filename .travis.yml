@@ -6,3 +6,5 @@ notifications:
 cache:
   directories:
     - node_modules
+services:
+  - mongo
