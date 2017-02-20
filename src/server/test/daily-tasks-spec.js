@@ -32,5 +32,13 @@ describe(`Daily Tasks API`, function() {
         assert.equal(body[0].tasks[0].description, 'dreidev admin system');
       });
     });
+    // eslint-disable-next-line
+    it(`should return a list of daily tasks belonging to the user`, () => {
+      return test.get(`/api/daily-tasks/user/U0U05G6JZ`)
+        .expect(200).then(({body}) => {
+        assert.isArray(body);
+        assert.equal(body[0].user_id, 'U0U05G6JZ');
+      });
+    });
   });
 });
