@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 exports.createAUser = ({
-    email = 'adel.zee@gmail.com',
+    email = 'ahmed.tokyo1@gmail.com',
     password = '12345',
   }) => {
     return User.create(

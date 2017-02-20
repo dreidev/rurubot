@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
+app.use(require('./routes/user'));
 app.use(require('./routes/daily-tasks'));
 app.use(require('./routes/grocery-list'));
 app.use(require('./routes/project'));

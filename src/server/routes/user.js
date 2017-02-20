@@ -1,6 +1,7 @@
+// eslint-disable-next-line
 const router = require('express').Router();
-const User = require('../models/user');
-const Auth = require('../routes/authentication');
+const User = require('../../models/user');
+const Auth = require('./authentication');
 
 /*
 |--------------------------------------------------------------------------
