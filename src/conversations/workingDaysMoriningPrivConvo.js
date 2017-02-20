@@ -1,5 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 const config = require('../../config/config');
 const DailyTasks = require('../models/daily-tasks.js');
 const rurubot = require('../bots/rurubot');
