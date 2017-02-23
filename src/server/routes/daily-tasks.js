@@ -41,4 +41,20 @@ router.get('/api/daily-tasks/user/:id', (req, res, next) => {
   });
 });
 
+/*
+|--------------------------------------------------------------------------
+| Post a daily task
+|--------------------------------------------------------------------------
+*/
+router.post('/api/daily-tasks', (req, res, next) => {
+  DailyTasks.create({
+    user_id: req.body.user_id,
+    tasks: req.body.tasks,
+  }).then((result) => {
+    res.status(201).send(result._id);
+  }).catch((err) => {
+    res.status(500).send({message: err.message});
+  });
+});
+
 module.exports = router;

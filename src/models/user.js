@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
@@ -16,25 +17,27 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   name: String,
-  deleted: Boolean,
   real_name: String,
-  user_level: {
-    type: String,
-    enum: ['normal', 'admin'],
+  deleted: {
+    type: Boolean,
+    default: false,
   },
-  // This follows profile in slack schema.
+  // This follows data in slack schema.
   profile: {
+    email: String,
     first_name: String,
     last_name: String,
-    email: String,
-    is_admin: Boolean,
-    is_owner: Boolean,
-    is_primary_owner: Boolean,
-    is_restricted: Boolean,
-    is_ultra_restricted: Boolean,
-    is_bot: Boolean,
-    has_2fa: Boolean,
+    real_name: String,
+    title: String,
+    phone: String,
   },
+  is_admin: Boolean,
+  is_owner: Boolean,
+  is_primary_owner: Boolean,
+  is_restricted: Boolean,
+  is_ultra_restricted: Boolean,
+  is_bot: Boolean,
+  has_2fa: Boolean,
 });
 
 userSchema.pre('save', function(next) {

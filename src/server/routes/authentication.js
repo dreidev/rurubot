@@ -1,7 +1,7 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 
-const config = require('../config/config');
+const config = require('../../../config/config');
 
 /*
  |--------------------------------------------------------------------------
@@ -25,6 +25,8 @@ function ensureAuthenticated(req, res, next) {
     return res.status(401).send({message: 'Token has expired'});
   }
   req.user_id = payload.user_id;
+  req.slack_id = payload.slack_id;
+  req.is_admin = payload.is_admin;
   next();
 }
 
@@ -37,7 +39,7 @@ function createJWT(user) {
   const payload = {
     user_id: user._id,
     slack_id: user.slack_id,
-    user_level: user.user_level,
+    is_admin: user.is_admin,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix(),
   };

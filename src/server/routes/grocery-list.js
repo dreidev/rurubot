@@ -77,7 +77,7 @@ router.get('/api/grocery-list/user/:user_id', (req, res, next) => {
 |--------------------------------------------------------------------------
 */
 
-router.post('/api/grocery-list/create', (req, res) => {
+router.post('/api/grocery-list', (req, res) => {
   GroceryListItem.create({
     name: req.body.name,
     state: req.body.state || 'notChecked',
@@ -116,7 +116,7 @@ router.put('/api/grocery-list/:id/check', (req, res) => {
 router.put('/api/grocery-list/:id/uncheck', (req, res) => {
   GroceryListItem.findById(req.params.id).then((groceryListItem) => {
     if (groceryListItem) {
-      groceryListItem.state = 'unChecked';
+      groceryListItem.state = 'notChecked';
       groceryListItem.save();
       res.sendStatus(200);
     } else {
