@@ -4,9 +4,10 @@ mongoose.Promise = Promise;
 let dailyTasksSchema = new mongoose.Schema({
   user_id: {
     type: String,
+    required: true,
   },
   date: {
-    type: Date,
+    type: Array,
     default: Date.now,
   },
   tasks: [

@@ -5,8 +5,10 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "node_modules/.bin/eslint ."
+    "deploy": "(pm2 delete rurubot && false) || pm2 start --silent index.js --name rurubot && pm2 save",
+    "start": "nodemon",
+    "server": "nodemon src/server/server.js",
+    "test": "node_modules/.bin/eslint . && _mocha src/**/*-spec.js -R spec --ui bdd"
   },
   "repository": {
     "type": "git",
@@ -49,15 +51,28 @@
   "homepage": "https://github.com/dreidev/rurubot#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.16.1",
     "botkit": "^0.4.10",
     "cleverbot.io": "^1.0.4",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
     "json-query": "^2.2.0",
+    "jwt-simple": "^0.5.1",
+    "lodash": "^4.17.4",
     "mongoose": "^4.8.2",
-    "node-schedule": "^1.2.0"
+    "morgan": "^1.8.1",
+    "node-schedule": "^1.2.0",
+    "toggl-api": "^1.0.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "dotenv": "^4.0.0",
     "eslint": "^3.15.0",
-    "eslint-config-dreidev": "^0.1.0"
+    "eslint-config-dreidev": "^0.1.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "pm2": "^2.4.0",
+    "supertest": "^3.0.0"
   }
 }

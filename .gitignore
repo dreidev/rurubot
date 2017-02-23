@@ -17,3 +17,6 @@ npm-debug.log*
 
 # ignored for now
 data/db/*
+
+# temp ignores
+# src/admin-fe
