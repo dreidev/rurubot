@@ -11,7 +11,6 @@ function clearDB(done) {
   return done();
 }
 
-// eslint-disable-next-line
 before(function(done) {
   if (mongoose.connection.readyState === 0) {
     mongoose.connect(MONGO_TEST_URI, function(err) {
@@ -25,7 +24,6 @@ before(function(done) {
   }
 });
 
-// eslint-disable-next-line
 after(function(done) {
   mongoose.disconnect();
   return done();

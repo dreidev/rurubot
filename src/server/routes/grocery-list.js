@@ -13,7 +13,7 @@ const GroceryListItem = require('../../models/grocery-list');
 | Get all grocery list
 |--------------------------------------------------------------------------
 */
-router.get('/api/grocery-list', (req, res, next) => {
+router.get('/api/grocery-list', function(req, res, next) {
   GroceryListItem.find().then((groceryListItem) => {
     if (!groceryListItem) {
       return res.status(404).send({message: 'not found'});
