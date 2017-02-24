@@ -1,7 +1,5 @@
 const app = require(`../app.js`);
-// const config = require('../config/config');
 const {clearDB} = require(`./setup.js`);
-// const mongoose = require(`mongoose`);
 const assert = require(`chai`).assert;
 
 const test = require(`supertest`)(app);

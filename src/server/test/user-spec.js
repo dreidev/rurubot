@@ -1,9 +1,6 @@
 const assert = require(`chai`).assert;
 const app = require(`../app.js`);
-// const config = require(`../../config/config.js`);
 const {clearDB} = require(`./setup.js`);
-// const {createAUser} = require('./utils');
-// const mongoose = require(`mongoose`);
 const test = require(`supertest`)(app);
 const User = require(`../../models/user`);
 
