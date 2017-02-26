@@ -1,22 +1,16 @@
 const assert = require(`chai`).assert;
 const app = require(`../app.js`);
-// const config = require(`../../config/config.js`);
 const {clearDB} = require(`./setup.js`);
-// const {createAUser} = require('./utils');
-// const mongoose = require(`mongoose`);
 const test = require(`supertest`)(app);
 const User = require(`../../models/user`);
 
-// eslint-disable-next-line
 describe(`User API`, function() {
-  // eslint-disable-next-line
-  before(clearDB)
+  before(clearDB);
   let name = `drazious`;
   let email = `amr.m.draz@gmail.com`;
   let password = `12345`;
   let slack_id = `U0U05G6JY`;
   let token;
-  // eslint-disable-next-line
   before((done) => {
     User.create({
       slack_id: 'U0U05G6JZ',
@@ -45,10 +39,8 @@ describe(`User API`, function() {
       done();
     }).catch(done);
   });
-  // eslint-disable-next-line
   describe('user API', () => {
-// eslint-disable-next-line
-    it(`should signup if email is unique`, done => {
+    it(`should signup if email is unique`, (done) => {
       test.post(`/api/auth/signup`).send({email, name, password, slack_id}).then(function({status, body}) {
         assert.equal(status, 200);
         assert.isDefined(body.token);
@@ -60,10 +52,8 @@ describe(`User API`, function() {
       }).catch(done);
     });
   });
-  // eslint-disable-next-line
   describe(`User Signup`, () => {
-    // eslint-disable-next-line
-    it(`should signup if email is unique`, done => {
+    it(`should signup if email is unique`, (done) => {
       test.post(`/api/auth/signup`).send({email, name, password, slack_id}).then(function({status, body}) {
         return User.findOne({email}).exec();
       }).then((user) => {
@@ -72,25 +62,21 @@ describe(`User API`, function() {
       }).catch(done);
     });
   });
-  // eslint-disable-next-line
   describe(`User Login`, () => {
-    // eslint-disable-next-line
     it(`should log in if email and password match`, (done) => {
       test.post(`/api/auth/login`).send({email, password}).then(function({status}) {
         assert.equal(status, 200);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should not log in if email is incorrect`, done => {
+    it(`should not log in if email is incorrect`, (done) => {
       let email = `j.doee@hotmail.com`;
       test.post(`/api/auth/login`).send({email, password}).then(function({status}) {
         assert.equal(status, 401);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should not log in if password is incorrect`, done => {
+    it(`should not log in if password is incorrect`, (done) => {
       let password = `1287345`;
       test.post(`/api/auth/login`).send({email, password}).then(function({status}) {
         assert.equal(status, 401);
@@ -98,42 +84,36 @@ describe(`User API`, function() {
       }).catch(done);
     });
   });
-  // eslint-disable-next-line
   describe(`User profile`, () => {
     let _id;
-    // eslint-disable-next-line
-    it(`should return user profile from id`, done => {
-      User.find().exec().then((users) => _id = users[0]._id).then(() =>
-      test.get(`/api/users/${_id}`)).then(function({status, body}) {
+    it(`should return user profile from id`, (done) => {
+      User.find().exec().then((users) => _id = users[0]._id)
+      .then(() => test.get(`/api/users/${_id}`)).then(function({status, body}) {
         assert.equal(status, 200);
         assert.equal(body._id, _id);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should return user not found`, done => {
+    it(`should return user not found`, (done) => {
       test.get(`/api/users/5834200320000e3abe469b53`).then(function({status}) {
         assert.equal(status, 404);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should return profile from token`, done => {
+    it(`should return profile from token`, (done) => {
       test.get(`/api/me`).set(`Authorization`, `jwt ${token}`).then(function({status, body}) {
         assert.equal(status, 200);
         assert.equal(body.email, email);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should fail if user is not signed up`, done => {
+    it(`should fail if user is not signed up`, (done) => {
       test.get(`/api/me`).set(`Authorization`, `jwt ${ `ldkfjgbldskjflkj`}`).then(function({status, body}) {
         assert.equal(status, 401);
         done();
       }).catch(done);
     });
-    // eslint-disable-next-line
-    it(`should update user if token is valid`, done => {
+    it(`should update user if token is valid`, (done) => {
       let email = `ahmed.tokyo1.2@gmail.com`;
       test.put(`/api/me`).set(`Authorization`, `jwt ${token}`).send({email}).then(function({status, body}) {
         assert.equal(body.email, email);
