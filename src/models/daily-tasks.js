@@ -7,7 +7,7 @@ let dailyTasksSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Array,
+    type: Date,
     default: Date.now,
   },
   tasks: [
