@@ -6,6 +6,9 @@ let dailyTasksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user_name: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,
