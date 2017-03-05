@@ -38,6 +38,9 @@ router.get('/api/daily-tasks/day/:date', (req, res, next) => {
     return res.status(400).send({message: 'Invalid date. Required format: DD-MM-YYYY'});
   }
   // Find tasks on to the queryDate
+  console.log(queryDate.year());
+  console.log(queryDate.month());
+  console.log(queryDate.date());
   DailyTasks.find({
     'date': {
       '$gte': new Date(queryDate.year(), queryDate.month(), queryDate.date()),
@@ -47,6 +50,7 @@ router.get('/api/daily-tasks/day/:date', (req, res, next) => {
     if (!dailyTasks) {
       return res.status(404).send({message: 'daily tasks not found'});
     }
+    console.log(dailyTasks);
     res.send(dailyTasks);
   }).catch((error) => {
     next(error);
@@ -75,7 +79,11 @@ router.get('/api/daily-tasks/user/:id', (req, res, next) => {
 |--------------------------------------------------------------------------
 */
 router.post('/api/daily-tasks', (req, res, next) => {
-  DailyTasks.create({user_id: req.body.user_id, tasks: req.body.tasks}).then((result) => {
+  DailyTasks.create({
+    user_id: req.body.user_id,
+    tasks: req.body.tasks,
+    user_name: req.body.user_name,
+  }).then((result) => {
     res.status(201).send(result._id);
   }).catch((err) => {
     res.status(500).send({message: err.message});
