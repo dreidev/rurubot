@@ -8,12 +8,13 @@ const rurubot = require('../bots/rurubot');
 const bot = rurubot.bot;
 
 // writes data
-function writeData(userID, list) {
+function writeData(userID, list, name) {
   console.log('writing data');
   mongoose.connect(config.MONGO_URI);
   DailyTasks.create({
     user_id: userID,
     tasks: list,
+    user_name: name,
   }, (res, err) => {
     if (err) {
       console.log(err);
@@ -26,7 +27,7 @@ function writeData(userID, list) {
 
 module.exports = function(member) {
   let memberCurrentDayTasks = [];
-  if (member.name === 'tokyo' || member.name === 'sayegh') {
+  if (member.name === 'tokyo') {
     bot.startPrivateConversation({
       user: member.id,
     }, (err, convo) => {
@@ -37,7 +38,7 @@ module.exports = function(member) {
             pattern: 'nothing',
             callback: (response, convo) => {
               memberCurrentDayTasks.push({description: response.text});
-              writeData(member.id, memberCurrentDayTasks);
+              writeData(member.id, memberCurrentDayTasks, member.name);
               convo.changeTopic('never_mind');
             },
           }, {
@@ -56,7 +57,7 @@ module.exports = function(member) {
             pattern: 'nothing',
             callback: (response, convo) => {
               // stop the conversation. this will cause it to end with status == 'stopped'
-              writeData(member.id, memberCurrentDayTasks);
+              writeData(member.id, memberCurrentDayTasks, member.name);
               convo.changeTopic('never_mind');
             },
           }, {
@@ -81,7 +82,7 @@ module.exports = function(member) {
             pattern: 'no',
             callback: (response, convo) => {
               // stop the conversation. this will cause it to end with status == 'stopped'
-              writeData(member.id, memberCurrentDayTasks);
+              writeData(member.id, memberCurrentDayTasks, member.name);
               convo.changeTopic('good_luck');
             },
           }, {

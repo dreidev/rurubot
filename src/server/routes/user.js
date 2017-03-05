@@ -46,6 +46,16 @@ router.get('/api/me', Auth.ensureAuthenticated, (req, res) => {
   });
 });
 
+router.get('/api/me', Auth.ensureAuthenticated, (req, res) => {
+  User.findById(req.user_id, function(err, user) {
+    if(!err) {
+      res.send(user);
+    }else{
+      console.log('error');
+    }
+  });
+});
+
 /*
    |--------------------------------------------------------------------------
    | PUT /api/me
@@ -53,7 +63,16 @@ router.get('/api/me', Auth.ensureAuthenticated, (req, res) => {
    */
 router.put('/api/me', Auth.ensureAuthenticated, (req, res) => {
   let updatedUser = null;
-  User.findById(req.user_id).exec().then((user) => {
+  User.findById(req.user_id).exec().then(function(user) {
+    if(!user.is_admin) {
+      delete req.is_admin;
+      delete req.is_owner;
+      delete req.is_primary_owner;
+      delete req.is_restricted;
+      delete req.is_ultra_restricted;
+      delete req.is_bot;
+      delete req.has_2fa;
+    }
     updatedUser = Object.assign(user, req.body);
     return user.update(req.body);
   }).then((user) => {
