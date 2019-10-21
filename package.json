@@ -70,7 +70,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "dotenv": "^4.0.0",
-    "eslint": "^3.15.0",
+    "eslint": "^6.5.1",
     "eslint-config-dreidev": "^0.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
